@@ -102,6 +102,10 @@ main {
   width: 100%;
 }
 
+p {
+  font-size: 14px;
+}
+
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

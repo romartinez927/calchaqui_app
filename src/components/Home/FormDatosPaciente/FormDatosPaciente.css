@@ -27,7 +27,8 @@
 }
 
 .datos-container input::placeholder {
-    color: lightgray
+    color: lightgray;
+    font-size: 13px;
 }
 
 .btn-submit {

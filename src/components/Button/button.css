@@ -1,0 +1,22 @@
+.button {
+    border-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    padding: 5px 10px;
+    font-size: 14px
+}
+
+.verde {
+    background-color: #48c774;
+}
+
+.rojo {
+    background-color: #f14668;
+}
+
+.azul {
+    background-color: #3298dc;
+}

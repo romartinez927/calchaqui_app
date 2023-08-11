@@ -1,3 +1,4 @@
+import Button from "@/components/Button/Button"
 import "./FormDatosPaciente.css"
 
 export default function FormDatosPaciente() {
@@ -6,7 +7,7 @@ export default function FormDatosPaciente() {
             <div className="datos-container">
                 <div className='d-flex justify-content-between align-items-center header div'>
                     <h5>Alta de Muestras</h5>
-                    <button className="btn-submit">Guardar e Imprimir</button>
+                    <Button color="verde" nombre="Guardar e Imprimir"/>
                 </div>
                 <div className="div">
                     <h6>Datos del Paciente</h6>

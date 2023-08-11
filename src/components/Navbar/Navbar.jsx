@@ -14,7 +14,7 @@ export default function Navbar() {
                             <Link href="/" className="nav-link">Alta muestra</Link>
                         </li>
                         <li className="nav-item">
-                            <Link href="/alta_muestra" className="nav-link">Listado Muestras</Link>
+                            <Link href="/muestras" className="nav-link">Listado Muestras</Link>
                         </li>
                     </ul>
                 </div>
@@ -36,7 +36,7 @@ export default function Navbar() {
                                     <Link href="/" className="nav-link">Alta muestra</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link href="/alta_muestra" className="nav-link">Listado Muestras</Link>
+                                    <Link href="/muestras" className="nav-link">Listado Muestras</Link>
                                 </li>
                             </ul>
                         </div>

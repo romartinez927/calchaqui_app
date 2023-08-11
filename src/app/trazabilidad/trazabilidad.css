@@ -1,0 +1,31 @@
+.trazabilidad .border-blue {
+    background-color: #aed8ff;
+    height: 25px;
+    width: 100%;
+}
+
+.trazabilidad .card-trazabilidad {
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px #ededed;
+    padding: 0;
+    width: 16em
+
+}
+
+.trazabilidad .card-trazabilidad .card-body{
+    height: 100%;
+    line-height: 7px;
+    padding: 10px 20px
+}
+
+.trazabilidad .card-trazabilidad .card-body div{
+    height: 100%;
+}
+
+.card-trazabilidad p {
+    font-size: 13px;
+}
+
+.card-trazabilidad h6 {
+    font-size: 16px;
+}
