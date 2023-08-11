@@ -1,0 +1,43 @@
+.datos-container {
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px #ededed;
+    background-color: #fafafa;
+}
+
+.datos-container .div {
+    padding: 15px 20px
+}
+
+.datos-container .header {
+    background-color: #fff;
+    border-bottom: 1px solid #ededed
+}
+
+.datos-container .row {
+    padding: 10px 0;
+}
+
+.datos-container label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.datos-container label {
+    font-size: 13px;
+}
+
+.datos-container input::placeholder {
+    color: lightgray
+}
+
+.btn-submit {
+    background-color: #48c774;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    padding: 5px 10px;
+    font-size: 14px
+}
