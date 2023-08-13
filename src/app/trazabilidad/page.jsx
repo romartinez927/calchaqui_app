@@ -1,10 +1,11 @@
 import Button from "@/components/Button/Button"
 import "../../components/Home/FormDatosPaciente/FormDatosPaciente.css"
 import "./trazabilidad.css"
+import ProgressBar from "@/components/Trazabilidad/ProgressBar"
 
 export default function Trazabilidad() {
     return (
-        <main className="container-fluid">
+        <main className="container-fluid" style={{maxWidth: "1100px"}}>
             <div className="datos-container">
                 <div className='d-flex justify-content-between align-items-center header div'>
                     <h5>Trazabilidad de la Muestra</h5>
@@ -14,7 +15,7 @@ export default function Trazabilidad() {
                     </div>
                 </div>
             </div>
-            <div className="trazabilidad row row-cols-1 row-cols-md-2 gap-3 justify-content-center mt-3">
+            <div className="trazabilidad row row-cols-1 row-cols-md-2 justify-content-between mx-auto mt-3">
                 <div className="card-trazabilidad col">
                     <div className="border-blue"></div>
                     <div className="card-body text-center ">
@@ -67,11 +68,7 @@ export default function Trazabilidad() {
                     </div>
                 </div>
             </div>
-            <div className="datos-container mt-4">
-                <div className='d-flex justify-content-between align-items-center header div'>
-                    
-                </div>
-            </div>
+            <ProgressBar/>
         </main>
     )
 }
