@@ -4,7 +4,7 @@ import FormDatosPaciente from '@/components/Home/FormDatosPaciente/FormDatosPaci
 
 export default function Home() {
   return (
-    <main>
+    <main className='home'>
       <FormDatosPaciente/>
     </main>
   )

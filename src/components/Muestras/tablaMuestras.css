@@ -3,7 +3,7 @@
 }
 
 .tabla-muestras thead {
-    background-color: #0090d2;
+    background-color: rgb(0, 144, 210);
     font-size: 12px;
     font-weight: 600;
     color:#fff;
@@ -40,9 +40,6 @@
 }
 
 .tabla-muestras .btn-muestras {
-    border: 1px solid black; 
-    border-radius: 50%; 
-    width: 25px;
-    height: 25px; 
-    padding-left: 4px;
+    width: 33px;
+    height: 32px; 
 }

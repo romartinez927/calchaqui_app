@@ -54,13 +54,13 @@ export default function ProgressBar() {
                             </div>
                             <div className="modal-body">
                                 <form className="w-50 mx-auto">
-                                    <div class="d-flex gap-2 mb-3">
-                                        <label for="recipient-name" class="col-form-label">Entrega:</label>
-                                        <input type="text" class="form-control" id="recipient-name" />
+                                    <div className="d-flex gap-2 mb-3">
+                                        <label for="recipient-name" className="col-form-label">Entrega:</label>
+                                        <input type="text" className="form-control" id="recipient-name" />
                                     </div>
-                                    <div class="d-flex gap-3 mb-3">
-                                        <label for="message-text" class="col-form-label">Recibe:</label>
-                                        <input type="text" class="form-control" id="recipient-name" />
+                                    <div className="d-flex gap-3 mb-3">
+                                        <label for="message-text" className="col-form-label">Recibe:</label>
+                                        <input type="text" className="form-control" id="recipient-name" />
                                     </div>
                                 </form>
                                 <div className="d-flex justify-content-center gap-2">

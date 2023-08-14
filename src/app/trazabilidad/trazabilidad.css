@@ -1,28 +1,28 @@
-.trazabilidad {
+
+.trazabilidad-container {
     width: 100%;
 }
 
-.trazabilidad .border-blue {
+.trazabilidad-container .border-blue {
     background-color: #aed8ff;
-    height: 25px;
+    height: 30px;
     width: 100%;
 }
 
-.trazabilidad .card-trazabilidad {
+.trazabilidad-container .card-trazabilidad {
     border-radius: 3px;
     box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.02);
     padding: 0;
-    width: 23%;
-    margin: 5px
+    width: 253px;
 }
 
-.trazabilidad .card-trazabilidad .card-body{
+.trazabilidad-container .card-trazabilidad .card-body{
     height: 100%;
     line-height: 7px;
     padding: 10px 20px
 }
 
-.trazabilidad .card-trazabilidad .card-body div{
+.trazabilidad-container .card-trazabilidad .card-body div{
     height: 100%;
 }
 
@@ -32,4 +32,14 @@
 
 .card-trazabilidad h6 {
     font-size: 16px;
+}
+
+@media screen and (max-width: 1060px) {
+    .trazabilidad-container .card-trazabilidad {
+        width: 340px;
+    }
+
+    .trazabilidad-container .border-blue {
+        height: 40px;
+    }
 }

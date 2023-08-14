@@ -78,7 +78,9 @@ export default function TablaMuestras({muestras}) {
                                     <p>GENERACIÓN 1er Piso</p>
                                 </td>
                                 <td>
-                                    <Link href="/trazabilidad" className="nav-link btn-muestras" >{"->"}</Link>
+                                    <Link href="/trazabilidad" className="nav-link " >
+                                        <img src="/flecha.png" className="btn-muestras" alt="Ir a Trazabilidad" />
+                                    </Link>
                                 </td>
                             </tr>
                         ))

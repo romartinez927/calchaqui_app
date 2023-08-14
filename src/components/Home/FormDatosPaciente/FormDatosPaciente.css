@@ -1,3 +1,7 @@
+.form-datos-paciente .row {
+    margin-block: 18px;
+}
+
 .datos-container {
     border-radius: 3px;
     box-shadow: 0 0 0 1px #ededed;
@@ -22,8 +26,25 @@
     font-size: 14px;
 }
 
-.datos-container label {
+.datos-container select {
     font-size: 13px;
+}
+
+.datos-container .form-control {
+    padding: 5px 10px
+}
+
+.datos-container .form-select {
+    padding: 8px 
+}
+
+.datos-container, .form-check-input {
+    margin-block: 0;
+    padding-block: 0;
+}
+
+.datos-container, .form-check-label {
+    font-size: 12px!important;
 }
 
 .datos-container input::placeholder {
