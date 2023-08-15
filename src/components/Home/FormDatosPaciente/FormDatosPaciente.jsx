@@ -1,39 +1,102 @@
+"use client"
+
 import Button from "@/components/Button/Button"
 import "./FormDatosPaciente.css"
+import { useState } from "react"
+import FormInput from "@/components/FormInput/FormInput"
+import FormSelect from "@/components/FormSelect/FormSelect"
+import axios from "axios"
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+const GET_MUESTRAS = process.env.NEXT_PUBLIC_GET_MUESTRAS
 
 export default function FormDatosPaciente() {
+    const [nombre, setNombre] = useState("")
+    const [apellido, setApellido] = useState("")
+    const [dni, setDni] = useState("")
+    const [obraSocial, setObraSocial] = useState("0")
+    const [puntoGeneracion, setPuntoGeneracion] = useState("0")
+    const [tipoMuestra, setTipoMuestra] = useState("0")
+    const [subtipoMuestra, setSubtipoMuestra] = useState("0")
+    const [medicoSolicitante, setMedicoSolicitante] = useState("")
+    const [preparador, setPreparador] = useState("")
+    const [frascos, setFrascos] = useState("")
+    const [material, setMaterial] = useState("")
+    const [localizacion, setLocalizacion] = useState("")
+    const [diagnostico, setDiagnostico] = useState("")
+    const [observaciones, setObservaciones] = useState("")
+
+    console.log(obraSocial)
+
+    const store = async (e) => {
+        e.preventDefault();
+        await axios.post(`${API_BASE_URL}/${GET_MUESTRAS}`, {
+            nombre: nombre, 
+            apellido: apellido, 
+            dni: dni, 
+            obra_social: obraSocial, 
+            paciente_id: 2,
+            punto_generacion: puntoGeneracion, 
+            // tipo_muestra: tipoMuestra,
+            tipo_muestra_id: 3,
+            subtipo_muestra: subtipoMuestra,
+            // medico_solicitante: medicoSolicitante,
+            frascos: frascos,
+            material: material,
+            localizacion: localizacion,
+            diagnostico: diagnostico,
+            observaciones: observaciones
+        })
+
+    }
+
     return (
-        <form className="form-datos-paciente">
+        <form className="form-datos-paciente" onSubmit={store}>
             <div className="datos-container">
                 <div className='d-flex justify-content-between align-items-center header div'>
                     <h5 className="fw-bold">Alta de Muestras</h5>
-                    <Button color="verde" nombre="Guardar e Imprimir" />
+                    <Button type="submit" nombre="Guardar e Imprimir" color="verde"/>
                 </div>
                 <div className="div">
                     <h6 className="fw-bold">Datos del Paciente</h6>
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <label htmlFor="dni" className="form-label">Dni</label>
-                                <input type="text" className="form-control" id="dni" placeholder="Escriba su DNI..." />
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <label htmlFor="nombre" className="form-label">Nombre</label>
-                                <input type="text" className="form-control" id="nombre" placeholder="Escriba su Nombre..." />
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <label htmlFor="apellido" className="form-label">Apellido</label>
-                                <input type="text" className="form-control" id="apellido" placeholder="Escriba su Apellido..." />
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <label className="form-label" htmlFor="autoSizingSelect">Obra Social</label>
-                                <select className="form-select" id="autoSizingSelect" defaultValue={0}>
-                                    <option value="0">Seleccione Obra Social...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
+                            <FormInput 
+                                name="dni"
+                                label="Dni"
+                                type="number"
+                                value={dni}
+                                onChange={ (e)=> setDni(e.target.value)}
+                                placeholder="Escriba su DNI..."
+                                col="3" 
+                            />
+                            <FormInput 
+                                name="nombre"
+                                label="Nombre"
+                                type="text"
+                                value={nombre}
+                                onChange={ (e)=> setNombre(e.target.value)}
+                                placeholder="Escriba su Nombre..."
+                                col="3" 
+                            />
+                            <FormInput 
+                                name="apellido"
+                                label="Apellido"
+                                type="text"
+                                value={apellido}
+                                onChange={ (e)=> setApellido(e.target.value)}
+                                placeholder="Escriba su Apellido..."
+                                col="3" 
+                            />
+                            <FormSelect
+                                name="obraSocial"
+                                label="Obra Social"
+                                type="text"
+                                value={obraSocial}
+                                onChange={ (e)=> setObraSocial(e.target.value)}
+                                placeholder="Seleccione Obra Social..."
+                                col="3"
+                            />
                         </div>
                     </div>
                 </div>
@@ -42,86 +105,121 @@ export default function FormDatosPaciente() {
                 <div className="div">
                     <h6 className="fw-bold">Datos de la Muestra</h6>
                     <div className="row">
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <label className="form-label" htmlFor="autoSizingSelect">Punto de Generación</label>
-                            <select className="form-select" id="autoSizingSelect" defaultValue={0}>
-                                <option value="0">Seleccione punto...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <label htmlFor="medicoSolicitante" className="form-label">Médico Solicitante</label>
-                            <input type="text" className="form-control" id="medicoSolicitante" placeholder="Escriba Nombre y Apellido" />
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-2">
-                            <label htmlFor="preparador" className="form-label">Preparador</label>
-                            <input type="text" className="form-control" id="preparador" placeholder="Escriba Nombre..." />
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-1">
-                            <label htmlFor="apellido" className="form-label">Frascos</label>
-                            <input type="number" className="form-control" id="apellido" placeholder="Cant." />
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-1">
+                        <FormSelect
+                            name="puntoGeneracion"
+                            label="Punto de Generación"
+                            type="text"
+                            value={puntoGeneracion}
+                            onChange={ (e)=> setPuntoGeneracion(e.target.value)}
+                            placeholder="Seleccione punto..."
+                            col="3"
+                        />
+                        <FormInput 
+                            name="medicoSolicitante"
+                            label="Médico Solicitante"
+                            type="text"
+                            value={medicoSolicitante}
+                            onChange={ (e)=> setMedicoSolicitante(e.target.value)}
+                            placeholder="Escriba Nombre y Apellido..."
+                            col="3" 
+                        />
+                        <FormInput 
+                            name="preparador"
+                            label="Preparador"
+                            type="text"
+                            value={preparador}
+                            onChange={ (e)=> setPreparador(e.target.value)}
+                            placeholder="Escriba Nombre..."
+                            col="2" 
+                        />
+                        <FormInput 
+                            name="frascos"
+                            label="Frascos"
+                            type="number"
+                            value={frascos}
+                            onChange={ (e)=> setFrascos(e.target.value)}
+                            placeholder="Cant."
+                            col="1" 
+                        />
+                        {/* <div className="col-sm-12 col-md-6 col-lg-1">
                             <label htmlFor="radio" className="form-label">ATB</label>
                             <div className="d-flex flex-column">
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                    <label className="form-check-label" for="flexRadioDefault1">
+                                    <label className="form-check-label" htmlFor="flexRadioDefault1">
                                         Sí
                                     </label>
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
-                                    <label className="form-check-label" for="flexRadioDefault2">
+                                    <label className="form-check-label" htmlFor="flexRadioDefault2">
                                         No
                                     </label>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-2">
+                        </div> */}
+                        {/* <div className="col-sm-12 col-md-6 col-lg-2">
                             <label htmlFor="atb" className="form-label">Nombre ATB</label>
-                            <input type="number" className="form-control" id="atb" placeholder="Nombre del ATB..." />
-                        </div>
+                            <input type="text" className="form-control" id="atb" placeholder="Nombre del ATB..." />
+                        </div> */}
                     </div>
                     <div className="row">
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <label className="form-label" htmlFor="autoSizingSelect">Tipo</label>
-                            <select className="form-select" id="autoSizingSelect" defaultValue={0}>
-                                <option value="0">Seleccione tipo...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <label className="form-label" htmlFor="autoSizingSelect">Subtipo</label>
-                            <select className="form-select" id="autoSizingSelect" defaultValue={0}>
-                                <option value="0">Seleccione subtipo...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <label htmlFor="material" className="form-label">Material remitido</label>
-                            <input type="text" className="form-control" id="material" placeholder="Datos del material remitido..." />
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <label htmlFor="localizacion" className="form-label">Localización</label>
-                            <input type="number" className="form-control" id="localizacion" placeholder="Datos de Localización..." />
-                        </div>
+                        <FormSelect
+                            name="tipoMuestra"
+                            label="Tipo"
+                            type="text"
+                            value={tipoMuestra}
+                            onChange={ (e)=> setTipoMuestra(e.target.value)}
+                            placeholder="Seleccione tipo..."
+                            col="3"
+                        />
+                        <FormSelect
+                            name="subtipoMuestra"
+                            label="Subtipo"
+                            type="text"
+                            value={subtipoMuestra}
+                            onChange={ (e)=> setSubtipoMuestra(e.target.value)}
+                            placeholder="Seleccione subtipo..."
+                            col="3"
+                        />
+                        <FormInput 
+                            name="material"
+                            label="Material"
+                            type="text"
+                            value={material}
+                            onChange={ (e)=> setMaterial(e.target.value)}
+                            placeholder="Datos del material remitido..."
+                            col="3" 
+                        />
+                        <FormInput 
+                            name="localizacion"
+                            label="Localizacion"
+                            type="text"
+                            value={localizacion}
+                            onChange={ (e)=> setLocalizacion(e.target.value)}
+                            placeholder="Datos de Localización..."
+                            col="3" 
+                        />
                     </div>
                     <div className="row">
-                        <div className="col-sm-12 col-md-6 col-lg-6">
-                            <label htmlFor="diagnostico" className="form-label">Diagnóstico Crítico Presuntivo</label>
-                            <input type="text" className="form-control" id="diagnostico" placeholder="Diagnóstico Crítico Presuntivo..." />
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-6">
-                            <label htmlFor="observaciones" className="form-label">Observaciones</label>
-                            <input type="number" className="form-control" id="observaciones" placeholder="Observaciones..." />
-                        </div>
+                        <FormInput 
+                            name="diagnostico"
+                            label="Diagnóstico Crítico Presuntivo"
+                            type="text"
+                            value={diagnostico}
+                            onChange={ (e)=> setDiagnostico(e.target.value)}
+                            placeholder="Diagnóstico Crítico Presuntivo..."
+                            col="6" 
+                        />
+                        <FormInput 
+                            name="observaciones"
+                            label="Observaciones"
+                            type="text"
+                            value={observaciones}
+                            onChange={ (e)=> setObservaciones(e.target.value)}
+                            placeholder="Observaciones..."
+                            col="6" 
+                        />
                     </div>
                 </div>
             </div>
