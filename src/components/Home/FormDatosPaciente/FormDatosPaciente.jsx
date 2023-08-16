@@ -26,7 +26,6 @@ export default function FormDatosPaciente() {
     const [diagnostico, setDiagnostico] = useState("")
     const [observaciones, setObservaciones] = useState("")
 
-    console.log(obraSocial)
 
     const store = async (e) => {
         e.preventDefault();
@@ -35,7 +34,7 @@ export default function FormDatosPaciente() {
             apellido: apellido, 
             dni: dni, 
             obra_social: obraSocial, 
-            paciente_id: 2,
+            // paciente_id: 2,
             punto_generacion: puntoGeneracion, 
             // tipo_muestra: tipoMuestra,
             tipo_muestra_id: 3,
@@ -92,6 +91,7 @@ export default function FormDatosPaciente() {
                                 name="obraSocial"
                                 label="Obra Social"
                                 type="text"
+                                data="obraSocial"
                                 value={obraSocial}
                                 onChange={ (e)=> setObraSocial(e.target.value)}
                                 placeholder="Seleccione Obra Social..."
@@ -109,6 +109,7 @@ export default function FormDatosPaciente() {
                             name="puntoGeneracion"
                             label="Punto de Generación"
                             type="text"
+                            data="servicios"
                             value={puntoGeneracion}
                             onChange={ (e)=> setPuntoGeneracion(e.target.value)}
                             placeholder="Seleccione punto..."
@@ -168,6 +169,7 @@ export default function FormDatosPaciente() {
                             name="tipoMuestra"
                             label="Tipo"
                             type="text"
+                            data="tipo"
                             value={tipoMuestra}
                             onChange={ (e)=> setTipoMuestra(e.target.value)}
                             placeholder="Seleccione tipo..."
@@ -177,6 +179,7 @@ export default function FormDatosPaciente() {
                             name="subtipoMuestra"
                             label="Subtipo"
                             type="text"
+                            data="subtipo"
                             value={subtipoMuestra}
                             onChange={ (e)=> setSubtipoMuestra(e.target.value)}
                             placeholder="Seleccione subtipo..."
