@@ -1,32 +1,5 @@
-import { getObrasSociales } from "@/api/getObrasSociales"
-import { getServicios } from "@/api/getServicios"
-import { getSubtipos } from "@/api/getSubtipos"
-import { getTipos } from "@/api/getTipos"
-
-export default async function FormSelect(props) {
-    let opciones
-    let opcion = props.data
-
-    // Usar una estructura switch para tomar diferentes acciones
-    switch (opcion) {
-        case 'obraSocial':
-            opciones = await getObrasSociales()
-            console.log(opciones)
-            break;
-        case 'tipo':
-            opciones = await getTipos()
-            break;
-        case 'subtipo':
-            opciones = await getSubtipos()
-            break;
-        case 'servicios':
-            opciones = await getServicios()
-            break;
-        default:
-            console.log('Opción no reconocida');
-            break;
-    }
-
+export default function FormSelect(props) {
+    const opciones = props.data
     return (
         <div className={`col-sm-12 col-md-6 col-lg-${props.col}`}>
             <label className="form-label" htmlFor={props.name}>{props.label}</label>

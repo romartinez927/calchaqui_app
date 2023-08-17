@@ -9,6 +9,7 @@ export default function FormInput(props) {
                 id={props.name} 
                 placeholder={props.placeholder}
                 onChange={props.onChange}
+                // required
             />
         </div>
     )

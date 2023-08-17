@@ -6,11 +6,12 @@ import { useState } from "react"
 import FormInput from "@/components/FormInput/FormInput"
 import FormSelect from "@/components/FormSelect/FormSelect"
 import axios from "axios"
+import LinkedSelects from "@/components/LinkedSelects/LinkedSelects"
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const GET_MUESTRAS = process.env.NEXT_PUBLIC_GET_MUESTRAS
 
-export default function FormDatosPaciente() {
+export default function FormDatosPaciente({selectObraSocial, selectTipos, selectServicios, selectSubtipos}) {
     const [nombre, setNombre] = useState("")
     const [apellido, setApellido] = useState("")
     const [dni, setDni] = useState("")
@@ -26,7 +27,6 @@ export default function FormDatosPaciente() {
     const [diagnostico, setDiagnostico] = useState("")
     const [observaciones, setObservaciones] = useState("")
 
-
     const store = async (e) => {
         e.preventDefault();
         await axios.post(`${API_BASE_URL}/${GET_MUESTRAS}`, {
@@ -34,11 +34,9 @@ export default function FormDatosPaciente() {
             apellido: apellido, 
             dni: dni, 
             obra_social: obraSocial, 
-            // paciente_id: 2,
             punto_generacion: puntoGeneracion, 
-            // tipo_muestra: tipoMuestra,
-            tipo_muestra_id: 3,
-            subtipo_muestra: subtipoMuestra,
+            tipo_muestra_id: tipoMuestra,
+            subtipo_muestra_id: subtipoMuestra,
             // medico_solicitante: medicoSolicitante,
             frascos: frascos,
             material: material,
@@ -91,7 +89,7 @@ export default function FormDatosPaciente() {
                                 name="obraSocial"
                                 label="Obra Social"
                                 type="text"
-                                data="obraSocial"
+                                data={selectObraSocial}
                                 value={obraSocial}
                                 onChange={ (e)=> setObraSocial(e.target.value)}
                                 placeholder="Seleccione Obra Social..."
@@ -109,7 +107,7 @@ export default function FormDatosPaciente() {
                             name="puntoGeneracion"
                             label="Punto de Generación"
                             type="text"
-                            data="servicios"
+                            data={selectServicios}
                             value={puntoGeneracion}
                             onChange={ (e)=> setPuntoGeneracion(e.target.value)}
                             placeholder="Seleccione punto..."
@@ -142,7 +140,7 @@ export default function FormDatosPaciente() {
                             placeholder="Cant."
                             col="1" 
                         />
-                        {/* <div className="col-sm-12 col-md-6 col-lg-1">
+                        <div className="col-sm-12 col-md-6 col-lg-1">
                             <label htmlFor="radio" className="form-label">ATB</label>
                             <div className="d-flex flex-column">
                                 <div className="form-check">
@@ -158,32 +156,18 @@ export default function FormDatosPaciente() {
                                     </label>
                                 </div>
                             </div>
-                        </div> */}
-                        {/* <div className="col-sm-12 col-md-6 col-lg-2">
+                        </div> 
+                      <div className="col-sm-12 col-md-6 col-lg-2">
                             <label htmlFor="atb" className="form-label">Nombre ATB</label>
                             <input type="text" className="form-control" id="atb" placeholder="Nombre del ATB..." />
-                        </div> */}
+                        </div>
                     </div>
                     <div className="row">
-                        <FormSelect
-                            name="tipoMuestra"
-                            label="Tipo"
-                            type="text"
-                            data="tipo"
-                            value={tipoMuestra}
-                            onChange={ (e)=> setTipoMuestra(e.target.value)}
-                            placeholder="Seleccione tipo..."
-                            col="3"
-                        />
-                        <FormSelect
-                            name="subtipoMuestra"
-                            label="Subtipo"
-                            type="text"
-                            data="subtipo"
-                            value={subtipoMuestra}
-                            onChange={ (e)=> setSubtipoMuestra(e.target.value)}
-                            placeholder="Seleccione subtipo..."
-                            col="3"
+                        <LinkedSelects 
+                            data={selectTipos}
+                            subtipos={selectSubtipos}
+                            onChangeTipo={ (e)=> setTipoMuestra(e.target.value)}
+                            onChangeSubtipo={ (e)=> setSubtipoMuestra(e.target.value)}
                         />
                         <FormInput 
                             name="material"
