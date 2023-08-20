@@ -1,11 +1,10 @@
 "use client"
 
 import Button from "@/components/Button/Button"
-import "../../components/Home/FormDatosPaciente/FormDatosPaciente.css"
 import "./muestras.css"
 import { useEffect, useState } from "react"
 import { getMuestras } from "@/api/getMuestras.js"
-import TablaMuestras from "@/components/Muestras/TablaMuestras"
+import TablaMuestras from "@/app/muestras/_components/ListadoMuestras/TablaMuestras"
 
 export default function Muestras() {
     const [muestras, setMuestras] = useState([])
@@ -14,8 +13,7 @@ export default function Muestras() {
         // Llamada a la función getMuestras y manejo de los datos
         async function fetchData() {
           try {
-            const query = ''; // Puedes ajustar la búsqueda si es necesario
-            const adaptedData = await getMuestras(query);
+            const adaptedData = await getMuestras();
             setMuestras(adaptedData);
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -51,7 +49,7 @@ export default function Muestras() {
                     </div>
                 </div>
             </div>
-            <TablaMuestras muestras={muestras}/>
+            <TablaMuestras muestras={muestras} />
         </main>
     )
 }

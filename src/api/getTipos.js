@@ -3,13 +3,9 @@ import { adaptarTipoDesdeApi } from "@/adapters/tiposAdapter";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const GET_TIPOS_MUESTRAS = process.env.NEXT_PUBLIC_GET_TIPOS_MUESTRAS
 
-export const getTipos = async (query = "") => {
+export const getTipos = async () => {
     try {
-        const url = query
-        ? `${API_BASE_URL}/${GET_TIPOS_MUESTRAS}?search=${encodeURIComponent(query)}`
-        : `${API_BASE_URL}/${GET_TIPOS_MUESTRAS}`;
-  
-      const response = await fetch(url);
+      const response = await fetch(`${API_BASE_URL}/${GET_TIPOS_MUESTRAS}`);
   
       if (!response.ok) {
         throw new Error('Failed to fetch.');

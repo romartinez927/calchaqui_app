@@ -1,24 +1,10 @@
-import { getObrasSociales } from "@/api/getObrasSociales"
 import "./home.css"
-import FormDatosPaciente from '@/components/Home/FormDatosPaciente/FormDatosPaciente'
-import { getTipos } from "@/api/getTipos"
-import { getSubtipos } from "@/api/getSubtipos"
-import { getServicios } from "@/api/getServicios"
+import AltaMuestras from "./muestras/alta/page"
 
-export default async function Home() {
-  const selectObraSocial = await getObrasSociales()
-  const selectTipos = await getTipos()
-  const selectServicios = await getServicios()
-  const selectSubtipos = await getSubtipos()
-
+export default function Home() {
   return (
-    <main className='home'>
-      <FormDatosPaciente 
-        selectObraSocial={selectObraSocial} 
-        selectTipos={selectTipos}
-        selectServicios={selectServicios}
-        selectSubtipos={selectSubtipos}
-      />
-    </main>
+    <>
+        <AltaMuestras/>
+    </>
   )
 }

@@ -1,13 +1,32 @@
 export const adaptarMuestraDesdeApi = (apiMuestra) => ({
     id: apiMuestra.id,
-    nombre_muestra: apiMuestra.nombre_muestra,
-    paciente_id: apiMuestra.paciente_id,
-    tipo_muestra_id: apiMuestra.tipo_muestra_id
+    puntoGeneracion: apiMuestra.puntoGeneracion,
+    tipoMuestra: apiMuestra.tipoMuestra,
+    subtipoMuestra: apiMuestra.subtipoMuestra,
+    frascos: apiMuestra.frascos,
+    material: apiMuestra.material,
+    medico: apiMuestra.medico,
+    preparador: apiMuestra.preparador,
+    localizacion: apiMuestra.localizacion,
+    diagnostico: apiMuestra.diagnostico,
+    observaciones: apiMuestra.observaciones,
+    paciente_id: apiMuestra.paciente_id
 });
   
 export const adaptarMuestraParaApi = (appMuestra) => ({
     id: appMuestra.id,
-    nombre_muestra: appMuestra.nombre_muestra,
-    paciente_id: appMuestra.paciente_id,
-    tipo_muestra_id: appMuestra.tipo_muestra_id
+    nombre: appMuestra.nombre,
+    apellido: appMuestra.apellido,
+    dni: appMuestra.dni,
+    obra_social: appMuestra.obraSocial,
+    punto_generacion: appMuestra.puntoGeneracion,
+    tipo_muestra_id: appMuestra.tipoMuestra,
+    subtipo_muestra_id: appMuestra.subtipoMuestra,
+    frascos: appMuestra.frascos,
+    material: appMuestra.material,
+    medico: appMuestra.medico,
+    preparador: appMuestra.preparador,
+    localizacion: appMuestra.localizacion,
+    diagnostico: appMuestra.diagnostico,
+    observaciones: appMuestra.observaciones,
 });

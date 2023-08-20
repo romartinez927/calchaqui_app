@@ -1,6 +1,6 @@
 import "./progressBar.css"
 
-export default function ProgressBar() {
+function ProgressBar() {
     return (
         <section className="step-wizard mt-2">
             <div className="step-wizard-list">
@@ -75,3 +75,5 @@ export default function ProgressBar() {
         </section>
     )
 }
+
+export default ProgressBar

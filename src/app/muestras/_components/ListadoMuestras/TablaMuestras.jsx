@@ -1,7 +1,7 @@
 import Link from "next/link"
 import "./tablaMuestras.css"
 
-export default function TablaMuestras({muestras}) {
+export default function TablaMuestras({muestras, pacientes}) {
     return (
         <div className="datos-container board mt-3">
             <table width="100%" className="tabla-muestras header">
@@ -53,23 +53,23 @@ export default function TablaMuestras({muestras}) {
                                     <p>{muestra.paciente_id}</p>
                                 </td>
                                 <td>
-                                    <p className="mb-0">Juan</p>
+                                    <p className="mb-0">{muestra.nombre}</p>
                                     <p className="mt-0">Perez</p>
                                 </td>
                                 <td>
-                                    <p>{muestra.nombre_muestra}</p>
+                                    <p>{muestra.tipo_muestra_id}</p>
                                 </td>
                                 <td>
                                     <p>Congelación</p>
                                 </td>
                                 <td>
-                                    <p>Material</p>
+                                    <p>{muestra.material}</p>
                                 </td>
                                 <td>
-                                    <p>Preparador</p>
+                                    <p>{muestra.preparador}</p>
                                 </td>
                                 <td>
-                                    <p>Médico</p>
+                                    <p>{muestra.medico}</p>
                                 </td>
                                 <td>
                                     <p>1er Piso</p>
@@ -78,7 +78,7 @@ export default function TablaMuestras({muestras}) {
                                     <p>GENERACIÓN 1er Piso</p>
                                 </td>
                                 <td>
-                                    <Link href="/trazabilidad" className="nav-link " >
+                                    <Link href={`/trazabilidad/${muestra.id}`} className="nav-link " >
                                         <img src="/flecha.png" className="btn-muestras" alt="Ir a Trazabilidad" />
                                     </Link>
                                 </td>

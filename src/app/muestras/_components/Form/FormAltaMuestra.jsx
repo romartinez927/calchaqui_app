@@ -1,17 +1,18 @@
 "use client"
 
 import Button from "@/components/Button/Button"
-import "./FormDatosPaciente.css"
+import "./FormAltaMuestra.css"
 import { useState } from "react"
-import FormInput from "@/components/FormInput/FormInput"
-import FormSelect from "@/components/FormSelect/FormSelect"
+import FormInput from "@/app/muestras/_components/Inputs/FormInput"
+import LinkedSelects from "@/app/muestras/_components/LinkedSelects/LinkedSelects"
+import FormSelect from "../FormSelect/FormSelect"
+import { postMuestra } from "@/api/setMuestra"
 import axios from "axios"
-import LinkedSelects from "@/components/LinkedSelects/LinkedSelects"
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const GET_MUESTRAS = process.env.NEXT_PUBLIC_GET_MUESTRAS
 
-export default function FormDatosPaciente({selectObraSocial, selectTipos, selectServicios, selectSubtipos}) {
+export default function FormAltaMuestra({selectObraSocial, selectTipos, selectServicios, selectSubtipos}) {
     const [nombre, setNombre] = useState("")
     const [apellido, setApellido] = useState("")
     const [dni, setDni] = useState("")
@@ -27,28 +28,51 @@ export default function FormDatosPaciente({selectObraSocial, selectTipos, select
     const [diagnostico, setDiagnostico] = useState("")
     const [observaciones, setObservaciones] = useState("")
 
-    const store = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(`${API_BASE_URL}/${GET_MUESTRAS}`, {
-            nombre: nombre, 
-            apellido: apellido, 
-            dni: dni, 
-            obra_social: obraSocial, 
-            punto_generacion: puntoGeneracion, 
-            tipo_muestra_id: tipoMuestra,
-            subtipo_muestra_id: subtipoMuestra,
-            // medico_solicitante: medicoSolicitante,
-            frascos: frascos,
-            material: material,
-            localizacion: localizacion,
-            diagnostico: diagnostico,
-            observaciones: observaciones
-        })
+        // const formData = new FormData()
+        try {
+            // formData.append("apellido", apellido)
+            // formData.append("nombre", nombre)
+            // formData.append("dni", dni)
+            // formData.append("obraSocial", obraSocial)
+            // formData.append("puntoGeneracion", puntoGeneracion)
+            // formData.append("tipoMuestra", tipoMuestra)
+            // formData.append("subtipoMuestra", subtipoMuestra)
+            // formData.append("frascos", frascos)
+            // formData.append("material", material)
+            // formData.append("localizacion", localizacion)
+            // formData.append("diagnostico", diagnostico)
+            // formData.append("observaciones", observaciones)
+        
+            // const response = await postMuestra(formData)
+            // console.log(response)
 
+            await axios.post(`${API_BASE_URL}/${GET_MUESTRAS}`, {
+                nombre: nombre, 
+                apellido: apellido, 
+                dni: dni, 
+                obra_social: obraSocial, 
+                punto_generacion: puntoGeneracion, 
+                tipo_muestra_id: tipoMuestra,
+                subtipo_muestra_id: subtipoMuestra,
+                medico: medicoSolicitante,
+                preparador: preparador,
+                frascos: frascos,
+                material: material,
+                localizacion: localizacion,
+                diagnostico: diagnostico,
+                observaciones: observaciones
+            })
+            console.log("muestra creada")
+            window.location.href = 'http://localhost:3000/muestras';
+        } catch (error) {
+            console.error("Error al crear muestra", error)
+        }
     }
 
     return (
-        <form className="form-datos-paciente" onSubmit={store}>
+        <form className="form-datos-paciente" onSubmit={handleSubmit}>
             <div className="datos-container">
                 <div className='d-flex justify-content-between align-items-center header div'>
                     <h5 className="fw-bold">Alta de Muestras</h5>
@@ -150,7 +174,7 @@ export default function FormDatosPaciente({selectObraSocial, selectTipos, select
                                     </label>
                                 </div>
                                 <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
+                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                                     <label className="form-check-label" htmlFor="flexRadioDefault2">
                                         No
                                     </label>
