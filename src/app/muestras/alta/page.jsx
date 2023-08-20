@@ -12,16 +12,16 @@ async function AltaMuestras() {
     const selectServicios = await getServicios()
     const selectSubtipos = await getSubtipos()
 
-  return (
-    <main className='alta-muestras'>
-        <FormAltaMuestra
-            selectObraSocial={selectObraSocial} 
-            selectTipos={selectTipos}
-            selectServicios={selectServicios}
-            selectSubtipos={selectSubtipos}
-        />
-    </main>
-  )
+    return (
+        <main className='alta-muestras'>
+            <FormAltaMuestra
+                selectObraSocial={selectObraSocial}
+                selectTipos={selectTipos}
+                selectServicios={selectServicios}
+                selectSubtipos={selectSubtipos}
+            />
+        </main>
+    )
 }
 
 export default AltaMuestras

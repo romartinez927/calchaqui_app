@@ -5,17 +5,16 @@ const GET_OBRAS_SOCIALES = process.env.NEXT_PUBLIC_GET_OBRAS_SOCIALES
 
 export const getObrasSociales = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/${GET_OBRAS_SOCIALES}`);
-  
-      if (!response.ok) {
-        throw new Error('Failed to fetch.');
-      }
-      
-      const dataResponse = await response.json();
-      const adaptedData = dataResponse.map(adaptarObraSocialDesdeApi);
-      return adaptedData;
+        const response = await fetch(`${API_BASE_URL}/${GET_OBRAS_SOCIALES}`);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch.');
+        }
+        const dataResponse = await response.json();
+        const adaptedData = dataResponse.map(adaptarObraSocialDesdeApi);
+        return adaptedData;
     } catch (error) {
-      console.error('Error fetching:', error);
-      return [];
+        console.error('Error fetching:', error);
+        return [];
     }
 }
