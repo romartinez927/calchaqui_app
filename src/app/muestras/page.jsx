@@ -22,7 +22,7 @@ export default function Muestras() {
     
         fetchData();
       }, []);
-
+      console.warn(muestras)
     return (
         <main className="muestras-container">
             <div>
