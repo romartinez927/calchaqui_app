@@ -1,7 +1,8 @@
 import Link from "next/link"
 import "./tablaMuestras.css"
+import { formatDate } from "@/utils/dateUtils"
 
-export default function TablaMuestras({muestras, pacientes}) {
+export default function TablaMuestras({muestras}) {
     return (
         <div className="datos-container board mt-3">
             <table width="100%" className="tabla-muestras header">
@@ -47,7 +48,7 @@ export default function TablaMuestras({muestras, pacientes}) {
                                     <p>{muestra.id}</p>
                                 </td>
                                 <td>
-                                    <p>02/08/2023</p>
+                                    <p>{formatDate(muestra.fechaAlta, "DD-MM-YYYY")}</p>
                                 </td>
                                 <td>
                                     <p>{muestra.paciente_id}</p>

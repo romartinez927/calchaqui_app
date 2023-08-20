@@ -10,7 +10,8 @@ export const adaptarMuestraDesdeApi = (apiMuestra) => ({
     localizacion: apiMuestra.localizacion,
     diagnostico: apiMuestra.diagnostico,
     observaciones: apiMuestra.observaciones,
-    paciente: apiMuestra.paciente
+    paciente: apiMuestra.paciente,
+    fechaAlta: apiMuestra.created_at
 });
   
 export const adaptarMuestraParaApi = (appMuestra) => ({
