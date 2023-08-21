@@ -62,16 +62,22 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
         e.preventDefault();
         try {
             const response = await postMuestra(formData)
-            console.log(response)
-            alert("muestra creada con éxito")
-        } catch (error) {
-            if(error.response = 422) {
-                // console.log(error.request.responseText)
-                const errores = error.request.response
-                console.log(errores.errors)
-            } 
+            console.log('hola',response);
+             alert('todo mal')
+            }
+        catch (error) {
+            if (error.response && error.response.status === 422) {
+
+                setErrors(error.response.data.errors);
+       
+              } else {
+                console.error('Error en la solicitud:', error);
+              }
+            
         }
     }
+    console.log('errroes', errors)
+    console.log('errroes DNI', errors?.dni[0]);
 
     return (
         <form className="form-datos-paciente needs-validation" noValidate onSubmit={handleSubmit}  >
@@ -90,6 +96,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                                 type="number"
                                 value={formData.dni}
                                 onChange={handleChange}
+                                error={errors?.dni ? errors?.dni[0] : null}
                                 placeholder="Escriba su DNI..."
                                 col="3"
                             />
@@ -101,7 +108,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                                 onChange={handleChange}
                                 placeholder="Escriba su Nombre..."
                                 col="3"
-                                error={errors}
+                                
                             />
                             <FormInput
                                 name="apellido"
