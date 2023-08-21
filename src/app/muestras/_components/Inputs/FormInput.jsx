@@ -1,6 +1,6 @@
 export default function FormInput(props) {
     return (
-        <div className={`col-sm-12 col-md-6 col-lg-${props.col}`}>
+        <div className={`col-sm-12 col-md-6 col-lg-${props.col} py-2`}>
             <label htmlFor={props.name} className="form-label">{props.label}</label>
             <input 
                 name={props.name}
@@ -10,7 +10,9 @@ export default function FormInput(props) {
                 id={props.name} 
                 placeholder={props.placeholder}
                 onChange={props.onChange}
+                required
             />
+            <div className="invalid-feedback">Este campo es requerido</div>
         </div>
     )
 }

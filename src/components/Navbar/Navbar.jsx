@@ -1,12 +1,14 @@
 import Link from "next/link"
 import "./navbar.css"
+import logo from "../../assets/logo_tekno.png"
 
 export default function Navbar() {
+
     return (
         <nav >
             <header className="header d-none d-xl-flex flex-column">
                 <div className="logo">
-                    <img src="logo_tekno.png" alt="Logo Clínica Calchaqui"/>
+                    <img src={logo.src} alt="Logo Clínica Calchaqui"/>
                 </div>
                 <div className="nav-items">
                     <ul>

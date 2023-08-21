@@ -1,8 +1,6 @@
 export const adaptarMuestraDesdeApi = (apiMuestra) => ({
     id: apiMuestra.id,
     puntoGeneracion: apiMuestra.puntoGeneracion,
-    tipoMuestra: apiMuestra.tipoMuestra,
-    subtipoMuestra: apiMuestra.subtipoMuestra,
     frascos: apiMuestra.frascos,
     material: apiMuestra.material,
     medico: apiMuestra.medico,
@@ -11,23 +9,26 @@ export const adaptarMuestraDesdeApi = (apiMuestra) => ({
     diagnostico: apiMuestra.diagnostico,
     observaciones: apiMuestra.observaciones,
     paciente: apiMuestra.paciente,
-    fechaAlta: apiMuestra.created_at
+    tipo_muestra: apiMuestra.tipo_muestra,
+    subtipo_muestra: apiMuestra.subtipo_muestra,
+    fechaAlta: apiMuestra.created_at,
+    atb: apiMuestra.atb,
 });
   
 export const adaptarMuestraParaApi = (appMuestra) => ({
-    id: appMuestra.id,
     nombre: appMuestra.nombre,
     apellido: appMuestra.apellido,
     dni: appMuestra.dni,
-    obra_social: appMuestra.obraSocial,
-    punto_generacion: appMuestra.puntoGeneracion,
-    tipo_muestra_id: appMuestra.tipoMuestra,
-    subtipo_muestra_id: appMuestra.subtipoMuestra,
+    obra_social: appMuestra.obraSocialSelected,
+    punto_generacion: appMuestra.puntoGeneracionSelected,
+    tipo_muestra_id: appMuestra.tipoMuestraSelected,
+    subtipo_muestra_id: appMuestra.subtipoMuestraSelected,
     frascos: appMuestra.frascos,
     material: appMuestra.material,
-    medico: appMuestra.medico,
+    medico: appMuestra.medicoSolicitante,
     preparador: appMuestra.preparador,
     localizacion: appMuestra.localizacion,
     diagnostico: appMuestra.diagnostico,
     observaciones: appMuestra.observaciones,
+    atb: appMuestra.atb,
 });

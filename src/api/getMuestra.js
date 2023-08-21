@@ -12,13 +12,8 @@ export const getMuestra = async (idMuestra) => {
         }
 
         const muestra = await response.json()
-
-        const respPaciente = await getPaciente(muestra.muestra.paciente_id)
-        muestra.paciente = respPaciente
-
         const adaptedMuestra = adaptarMuestraDesdeApi(muestra.muestra)
 
-        adaptedMuestra.paciente_id = respPaciente
         return adaptedMuestra
     } catch (error) {
         console.error("Error en el fetch a pacientes", error)

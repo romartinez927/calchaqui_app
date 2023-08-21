@@ -20,12 +20,12 @@ export const getPacientes = async () => {
     }
 }
 
-var requestOptions = {
-  method: 'GET',
-  redirect: 'follow'
-};
+// var requestOptions = {
+//   method: 'GET',
+//   redirect: 'follow'
+// };
 
-fetch("http://127.0.0.1:8000/api/pacientes", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+// fetch("http://127.0.0.1:8000/api/pacientes", requestOptions)
+//   .then(response => response.text())
+//   .then(result => console.log(result))
+//   .catch(error => console.log('error', error));

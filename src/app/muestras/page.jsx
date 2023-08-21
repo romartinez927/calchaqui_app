@@ -9,6 +9,9 @@ import TablaMuestras from "@/app/muestras/_components/ListadoMuestras/TablaMuest
 export default function Muestras() {
     const [muestras, setMuestras] = useState([])
     const [muestrasInitial, setMuestrasInitial] = useState([])
+    const [fechaInicio, setFechaInicio] = useState("")
+    const [fechaFin, setFechaFin] = useState("")
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         // Llamada a la función getMuestras y manejo de los datos
@@ -17,28 +20,68 @@ export default function Muestras() {
                 const adaptedData = await getMuestras();
                 setMuestras(adaptedData);
                 setMuestrasInitial(adaptedData);
+                setIsLoading(false)
+                console.log(adaptedData[0].fechaAlta)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
-
         fetchData();
     }, []);
-    console.warn(muestras)
 
 
     // ver forma que borre filtros anteriores
+    // const search = (event) => {
+    //     const searchTerm = event.target.value.toLowerCase();
+
+    //     if (searchTerm === "") {
+    //         setMuestras(muestrasInitial);
+
+    //     } else {
+    //         const filteredMuestraR = muestrasInitial.filter((muestra) =>
+    //             muestra?.material?.toLowerCase().includes(searchTerm) ||
+    //             muestra?.paciente?.nombre.toLowerCase().includes(searchTerm) ||
+    //             muestra?.paciente?.apellido.toLowerCase().includes(searchTerm) ||
+    //             muestra?.tipo_muestra?.nombre.toLowerCase().includes(searchTerm)
+    //         );
+    //         setMuestras(filteredMuestraR);
+    //     }
+    // }
+
     const search = (event) => {
-        const filteredMuestraR = muestras.filter((muestra) =>
-            muestra?.material?.toLowerCase().includes(event.target.value.toLowerCase())
-            ||
-            muestra?.fecha?.toLowerCase().includes(event.target.value.toLowerCase())
-        );
-        setMuestras([...filteredMuestraR])
-        if(event.target.value <= 0){
+        const searchTerm = event.target.value.toLowerCase();
+    
+        const filteredMuestras = muestrasInitial.filter((muestra) => {
+            const muestraFecha = new Date(muestra?.fechaAlta);
+            const inicio = new Date(fechaInicio);
+            const fin = new Date(fechaFin);
+    
+            return (
+                (searchTerm === "" ||
+                    muestra?.material?.toLowerCase().includes(searchTerm) ||
+                    muestra?.paciente?.nombre.toLowerCase().includes(searchTerm) ||
+                    muestra?.paciente?.apellido.toLowerCase().includes(searchTerm) ||
+                    muestra?.tipo_muestra?.nombre.toLowerCase().includes(searchTerm) ||
+                    muestra?.fechaAlta?.toLowerCase().includes(searchTerm)) &&
+                (!fechaInicio || !fechaFin ||
+                    (muestraFecha >= inicio && muestraFecha <= fin))
+            );
+        });
+    
+        setMuestras(filteredMuestras);
+
+        
+        if (searchTerm === "") {
             setMuestras(muestrasInitial);
         }
-    }
+    };
+
+    const resetFilters = () => {
+        setMuestras(muestrasInitial);
+        setFechaInicio("");
+        setFechaFin("");
+    };
+
     return (
         <main className="muestras-container">
             <div>
@@ -53,19 +96,19 @@ export default function Muestras() {
                             <input className="form-control" type="search" placeholder="Ingrese cualquier texto..." onChange={search} />
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
-                            <input className="form-control input-date" type="date" />
+                            <input className="form-control input-date" type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value) } />
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
-                            <input className="form-control input-date" type="date" />
+                            <input className="form-control input-date" type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value) } />
                         </div>
                         <div className="d-flex col-sm-12 col-md-6 col-lg-1 gap-2">
                             <Button nombre="Buscar" color="azul" />
-                            <Button nombre="Limpiar" color="rojo" />
+                            <Button nombre="Limpiar" color="rojo" onClick={resetFilters}/>
                         </div>
                     </div>
                 </div>
             </div>
-            <TablaMuestras muestras={muestras} />
+            <TablaMuestras muestras={muestras} isLoading={isLoading}/>
         </main>
     )
 }
