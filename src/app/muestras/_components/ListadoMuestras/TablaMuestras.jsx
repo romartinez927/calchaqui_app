@@ -124,7 +124,7 @@ export default function TablaMuestras({ muestras, isLoading }) {
                                         <p>{muestra.medico}</p>
                                     </td>
                                     <td>
-                                        <p>1er Piso</p>
+                                        <p>{muestra.puntoGeneracion}</p>
                                     </td>
                                     <td>
                                         <p>GENERACIÓN 1er Piso</p>

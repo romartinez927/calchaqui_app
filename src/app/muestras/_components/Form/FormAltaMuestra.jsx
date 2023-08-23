@@ -33,7 +33,6 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
         setErrors(null);
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
-        
     }
 
     console.log(formData)

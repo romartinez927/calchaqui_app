@@ -1,6 +1,6 @@
 export const adaptarMuestraDesdeApi = (apiMuestra) => ({
     id: apiMuestra.id,
-    puntoGeneracion: apiMuestra.puntoGeneracion,
+    puntoGeneracion: apiMuestra.punto_generacion,
     frascos: apiMuestra.frascos,
     material: apiMuestra.material,
     medico: apiMuestra.medico,
