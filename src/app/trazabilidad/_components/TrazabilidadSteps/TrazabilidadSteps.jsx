@@ -1,14 +1,14 @@
 "use client"
 
 import { getTrazabilidad } from "@/api/getTrazabilidad";
-import "./progressBar.css"
+import "./TrazabilidadSteps.css"
 import { useEffect, useState } from "react";
 import { postTrazabilidad } from "@/api/setTrazabilidad";
-import { formatDate } from "@/utils/dateUtils";
-import ProgressBarItem from "./ProgressBarItem";
 import { getPuntosDeControl } from "@/api/getPuntosDeControl";
+import Step from "./Step";
+import Skeleton from "../DatosMuestra/Skeleton";
 
-function ProgressBar(props) {
+function TrazabilidadSteps(props) {
     const [trazabilidad, setTrazabilidad] = useState([])
     const [puntosDeControl, setPuntosDeControl] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -71,17 +71,19 @@ function ProgressBar(props) {
         <section className="step-wizard mt-2">
             <div className="step-wizard-list">
                 {
-                    puntosDeControl.map(punto => (
-                        <ProgressBarItem
-                            key={punto.id}
-                            id={punto.id}
-                            idMuestra={props.id}
-                            puntoControlNombre={punto.nombre}
-                            puntoOrden={punto.id}
-                            currentItem={currentStep}
-                            setStep={setCurrentStep} 
-                        />
-                    ))
+                    isLoading ? 
+                        <Skeleton/> 
+                        : puntosDeControl.map(punto => (
+                            <Step
+                                key={punto.id}
+                                id={punto.id}
+                                idMuestra={props.id}
+                                puntoControlNombre={punto.nombre}
+                                puntoOrden={punto.id}
+                                currentItem={currentStep}
+                                setStep={setCurrentStep} 
+                            />
+                        ))
                 }
             </div>
             <div>
@@ -115,4 +117,4 @@ function ProgressBar(props) {
     )
 }
 
-export default ProgressBar
+export default TrazabilidadSteps

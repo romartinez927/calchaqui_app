@@ -1,31 +1,8 @@
-"use client"
+import Skeleton from "./Skeleton"
+import "./datosMuestra.css"
 
-import { getMuestra } from '@/api/getMuestra';
-import React, { useEffect, useState } from 'react'
-import "./datosPaciente.css"
-import Skeleton from './Skeleton';
-import ProgressBar from '../ProgressBar/ProgressBar';
-
-function DatosPaciente(props) {
-    const [muestra, setMuestra] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        // Llamada a la función getMuestras y manejo de los datos
-        async function fetchData() {
-            try {
-                const adaptedData = await getMuestra(props.id);
-                setMuestra(adaptedData);
-                console.log(adaptedData)
-                setIsLoading(false)
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
-        fetchData();
-    }, []);
-
+function DatosMuestra(props) {
+    const {isLoading, muestra} = props
     return (
         <div className="trazabilidad-container d-flex flex-wrap gap-2 justify-content-center mx-auto mt-3">
             <div className="card-trazabilidad">
@@ -55,7 +32,7 @@ function DatosPaciente(props) {
                 <div className="border-blue"></div>
                 {
                     isLoading ?
-                        <Skeleton/>
+                        <Skeleton />
                         : <div className='card-body'>
                             <h6>Tipo</h6>
                             <p>{muestra.tipo_muestra?.nombre}</p>
@@ -71,7 +48,7 @@ function DatosPaciente(props) {
                 <div className="border-blue"></div>
                 {
                     isLoading ?
-                        <Skeleton/>
+                        <Skeleton />
                         : <div className='card-body'>
                             <h6>Médico Solicitante</h6>
                             <p>{muestra.medico}</p>
@@ -89,7 +66,7 @@ function DatosPaciente(props) {
                 <div>
                     {
                         isLoading ?
-                            <Skeleton/>
+                            <Skeleton />
                             : <div className='card-body'>
                                 <h6>Observaciones</h6>
                                 <p>{muestra.observaciones}</p>
@@ -99,9 +76,8 @@ function DatosPaciente(props) {
                     }
                 </div>
             </div>
-            <ProgressBar id={props.id}/>
         </div>
     )
 }
 
-export default DatosPaciente
+export default DatosMuestra

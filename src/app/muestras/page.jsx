@@ -30,24 +30,6 @@ export default function Muestras() {
     }, []);
 
 
-    // ver forma que borre filtros anteriores
-    // const search = (event) => {
-    //     const searchTerm = event.target.value.toLowerCase();
-
-    //     if (searchTerm === "") {
-    //         setMuestras(muestrasInitial);
-
-    //     } else {
-    //         const filteredMuestraR = muestrasInitial.filter((muestra) =>
-    //             muestra?.material?.toLowerCase().includes(searchTerm) ||
-    //             muestra?.paciente?.nombre.toLowerCase().includes(searchTerm) ||
-    //             muestra?.paciente?.apellido.toLowerCase().includes(searchTerm) ||
-    //             muestra?.tipo_muestra?.nombre.toLowerCase().includes(searchTerm)
-    //         );
-    //         setMuestras(filteredMuestraR);
-    //     }
-    // }
-
     const search = (event) => {
         const searchTerm = event.target.value.toLowerCase();
     

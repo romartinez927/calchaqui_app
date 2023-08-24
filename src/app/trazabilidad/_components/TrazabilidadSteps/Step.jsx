@@ -4,7 +4,7 @@ import { getTrazabilidadPunto } from '@/api/getTrazabilidadPunto';
 import { formatDate } from '@/utils/dateUtils'
 import React, { useEffect, useState } from 'react'
 
-function ProgressBarItem(props) {
+function Step(props) {
     const [trazabilidad, setTrazabilidad] = useState([])
     const [step, setStep] = useState(props.currentItem);
 
@@ -47,4 +47,4 @@ function ProgressBarItem(props) {
     )
 }
 
-export default ProgressBarItem
+export default Step
