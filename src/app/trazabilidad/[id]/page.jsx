@@ -8,7 +8,7 @@ function page({ params }) {
     return (
         <main id="trazabilidad" className="container-fluid">
             <TrazabilidadHeader/>
-            <TrazabilidadMuestraContainer id={params.id}/>
+            <TrazabilidadMuestraContainer idMuestra={params.id}/>
         </main>
     )
 }

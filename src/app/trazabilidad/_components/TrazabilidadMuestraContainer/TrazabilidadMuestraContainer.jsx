@@ -14,22 +14,21 @@ function TrazabilidadMuestraContainer(props) {
         // Llamada a la función getMuestras y manejo de los datos
         async function fetchData() {
             try {
-                const adaptedData = await getMuestra(props.id);
+                const adaptedData = await getMuestra(props.idMuestra);
                 setMuestra(adaptedData);
-                console.log(adaptedData)
-                setIsLoading(false)
             } catch (error) {
                 console.error('Error fetching data:', error);
+            } finally {
+                setIsLoading(false)
             }
         }
-
         fetchData();
     }, []);
 
     return (
         <div>
             <DatosMuestra muestra={muestra} isLoading={isLoading}/>
-            <TrazabilidadSteps muestra={muestra} id={props.id}/>
+            <TrazabilidadSteps idMuestra={props.idMuestra}/>
         </div>
     )
 }

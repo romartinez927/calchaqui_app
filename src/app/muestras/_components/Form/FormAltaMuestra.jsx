@@ -61,22 +61,19 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
         e.preventDefault();
         try {
             const response = await postMuestra(formData)
-            console.log('hola',response);
-             alert('todo mal')
-            }
+            // validar si esta todo ok y redirigir a la lista ver "response.ok"
+        }
         catch (error) {
             if (error.response && error.response.status === 422) {
 
                 setErrors(error.response.data.errors);
-       
-              } else {
+
+            } else {
                 console.error('Error en la solicitud:', error);
-              }
-            
+            }
+
         }
     }
-    console.log('errroes', errors)
-    console.log('errroes DNI', errors?.dni[0]);
 
     return (
         <form className="form-datos-paciente needs-validation" noValidate onSubmit={handleSubmit}  >
@@ -107,7 +104,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                                 onChange={handleChange}
                                 placeholder="Escriba su Nombre..."
                                 col="3"
-                                
+
                             />
                             <FormInput
                                 name="apellido"
@@ -163,7 +160,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Escriba Nombre..."
                             col="2"
-                        /> 
+                        />
                         <FormInput
                             name="frascos"
                             label="Frascos"
@@ -173,18 +170,18 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             placeholder="Cant."
                             col="1"
                         />
-                       
+
                         <div className="col-sm-12 col-md-6 col-lg-1">
                             <label htmlFor="radio" className="form-label pt-2 atb">ATB</label>
                             <div className="d-flex flex-xl-column">
                                 <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={handleAtbSeleccionadoChange}/>
+                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={handleAtbSeleccionadoChange} />
                                     <label className="form-check-label" htmlFor="flexRadioDefault1">
                                         Sí
                                     </label>
                                 </div>
                                 <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={handleAtbSeleccionadoChange}/>
+                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={handleAtbSeleccionadoChange} />
                                     <label className="form-check-label" htmlFor="flexRadioDefault2" >
                                         No
                                     </label>
@@ -193,7 +190,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-2">
                             <label htmlFor="atb" className="form-label pt-2">Nombre ATB</label>
-                            <input type="text" className="form-control" name="atb" value={formData.atb} onChange={handleChange} id="atb" placeholder="Nombre del ATB..." disabled={!atbSeleccionado}/>
+                            <input type="text" className="form-control" name="atb" value={formData.atb} onChange={handleChange} id="atb" placeholder="Nombre del ATB..." disabled={!atbSeleccionado} />
                         </div>
                     </div>
                     <div className="row">

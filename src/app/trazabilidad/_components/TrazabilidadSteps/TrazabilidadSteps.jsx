@@ -1,6 +1,5 @@
 "use client"
-
-import { getTrazabilidad } from "@/api/getTrazabilidad";
+import { getTrazabilidadDeMuestra } from "@/api/getTrazabilidadDeMuestra";
 import "./TrazabilidadSteps.css"
 import { useEffect, useState } from "react";
 import { postTrazabilidad } from "@/api/setTrazabilidad";
@@ -9,7 +8,8 @@ import Step from "./Step";
 import Skeleton from "../DatosMuestra/Skeleton";
 
 function TrazabilidadSteps(props) {
-    const [trazabilidad, setTrazabilidad] = useState([])
+    const [trazabilidades, setTrazabilidades] = useState([])
+    const [puntoDeControlSeleccionado, setPuntoDeControlSeleccionado] = useState(null)
     const [puntosDeControl, setPuntosDeControl] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [formData, setFormData] = useState({
@@ -17,55 +17,56 @@ function TrazabilidadSteps(props) {
         entregado_por: '',
         model_id: props.id,
     })
-   
-    const [currentStep, setCurrentStep] = useState(1);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const adaptedData = await getTrazabilidad(props.id);
-                setTrazabilidad(adaptedData);
-                console.log(adaptedData)
+                const adaptedData = await getTrazabilidadDeMuestra(props.idMuestra);
+                setTrazabilidades(adaptedData);
 
                 const puntosControl = await getPuntosDeControl()
                 setPuntosDeControl(puntosControl)
-                console.log(puntosControl)
 
-                setIsLoading(false)
             } catch (error) {
                 console.error('Error fetching data:', error);
+            } finally {
+                setIsLoading(false);
             }
         }
         fetchData();
     }, []);
 
-    useEffect(() => {
-        if (trazabilidad.punto_de_control_id) {
-            let trazabilidadPunto = trazabilidad.punto_de_control_id
-            setCurrentStep(trazabilidadPunto++);
-        }
-    }, [trazabilidad.punto_de_control_id]);
+    // useEffect(() => {
+    //     if (trazabilidad.punto_de_control_id) {
+    //         let trazabilidadPunto = trazabilidad.punto_de_control_id
+    //         setCurrentStep(trazabilidadPunto++);
+    //     }
+    // }, [trazabilidad.punto_de_control_id]);
 
     const handleSubmit = async (e) => {
+        console.log('enviando punto de control id: ', puntoDeControlSeleccionado);
         e.preventDefault();
-        try {
-            const response = await postTrazabilidad(formData)
-            if (response.ok) {
-                setCurrentStep(response.data.punto_de_control_id); // Actualiza el estado con el valor de la respuesta
+        // try {
+        //     const response = await postTrazabilidad(formData)
+        //     if (response.ok) {
+        //         setCurrentStep(response.data.punto_de_control_id); // Actualiza el estado con el valor de la respuesta
               
-                alert("trazabilidad creada con éxito");
-            }
-        } catch (error) {
-            if (error.response = 422) {
-                console.log(error)
-            }
-        }
+        //         alert("trazabilidad creada con éxito");
+        //     }
+        // } catch (error) {
+        //     if (error.response = 422) {
+        //         console.log(error)
+        //     }
+        // }
     }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     }
+
+    
+    
 
     return (
         <section className="step-wizard mt-2">
@@ -79,9 +80,8 @@ function TrazabilidadSteps(props) {
                                 id={punto.id}
                                 idMuestra={props.id}
                                 puntoControlNombre={punto.nombre}
-                                puntoOrden={punto.id}
-                                currentItem={currentStep}
-                                setStep={setCurrentStep} 
+                                orden={punto.id}
+                                trazabilidades={trazabilidades}
                             />
                         ))
                 }
@@ -95,6 +95,7 @@ function TrazabilidadSteps(props) {
                             </div>
                             <div className="modal-body">
                                 <form className="w-50 mx-auto" onSubmit={handleSubmit}>
+                                    <input type="hidden" name="punto_de_control_id" value={puntoDeControlSeleccionado} />
                                     <div className="d-flex gap-2 mb-3">
                                         <label htmlFor="entregado_por" className="col-form-label">Entrega:</label>
                                         <input type="text" onChange={handleChange} name="entregado_por" className="form-control" id="entregado_por" />
