@@ -4,6 +4,7 @@ import { getMuestra } from '@/api/getMuestra';
 import React, { useEffect, useState } from 'react'
 import "./datosPaciente.css"
 import Skeleton from './Skeleton';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 function DatosPaciente(props) {
     const [muestra, setMuestra] = useState([])
@@ -98,6 +99,7 @@ function DatosPaciente(props) {
                     }
                 </div>
             </div>
+            <ProgressBar id={props.id}/>
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import { adaptarMuestraDesdeApi } from "@/adapters/muestraAdapter"
-import { getPaciente } from "./getPaciente"
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const GET_MUESTRA = process.env.NEXT_PUBLIC_GET_MUESTRA

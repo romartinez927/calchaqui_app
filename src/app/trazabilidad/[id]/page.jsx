@@ -41,7 +41,7 @@ function page({ params }) {
                 </div>
             </div>
             <DatosPaciente id={params.id}/>
-            <ProgressBar id={params.id}/>
+            {/* <ProgressBar id={params.id}/> */}
         </main>
     )
 }
