@@ -9,6 +9,7 @@ function Step(props) {
         recibidoPor: '',
         entregadoPor: '',
     })
+    const [puntoDeControlSeleccionado, setPuntoDeControlSeleccionado] = useState(null)
 
     useEffect(() => {
         setTrazabilidad(getTrazabilidad)
@@ -21,59 +22,97 @@ function Step(props) {
         return resultadoBusqueda;
     }
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    }
+
+    const handleSubmit = async (e) => {
+        console.log('enviando punto de control id: ', puntoDeControlSeleccionado);
+        e.preventDefault();
+        // try {
+        //     const response = await postTrazabilidad(formData)
+        //     if (response.ok) {
+        //         setCurrentStep(response.data.punto_de_control_id); // Actualiza el estado con el valor de la respuesta
+              
+        //         alert("trazabilidad creada con éxito");
+        //     }
+        // } catch (error) {
+        //     if (error.response = 422) {
+        //         console.log(error)
+        //     }
+        // }
+    }
+
     return (
-        // <div className={step == props.id ? "step-wizard-item current-item" : "step-wizard-item"}>
-        <div className={"step-wizard-item current-item"}>
-            <span className="progress-count">{props.puntoOrden}</span>
-            <span className="progress-label">{props.puntoControlNombre}</span>
-            <span className="progress-label">{props.puntoGeneracion}</span>
-            <>
-                <span className="progress-label">{trazabilidad?.fechaHora ? formatDate(trazabilidad?.fechaHora, "DD/MM/YYYY") : ''}</span>
-                <span className="progress-label">{trazabilidad?.fechaHora ? `${formatDate(trazabilidad?.fechaHora, "hh:mm")} hs` : ''} </span>
-                <span className="progress-label">
+        <div>
+            <div className={"step-wizard-item current-item"}>
+                <span className="progress-count">{props.puntoOrden}</span>
+                <span className="progress-label">{props.puntoControlNombre}</span>
+                <span className="progress-label">{props.puntoGeneracion}</span>
+                <>
+                    <span className="progress-label">{trazabilidad?.fechaHora ? formatDate(trazabilidad?.fechaHora, "DD/MM/YYYY") : ''}</span>
+                    <span className="progress-label">{trazabilidad?.fechaHora ? `${formatDate(trazabilidad?.fechaHora, "hh:mm")} hs` : ''} </span>
+                    <span className="progress-label">
+                        {
+                            trazabilidad?.recibidoPor
+                                ?
+                                <>
+                                    {props.orden == 1 ? "Solicitó:" : "Entregó:"}
+                                    {trazabilidad?.recibidoPor ?? ""}
+                                </>
+                                :
+                                ''
+                        }
+                    </span>
+                    <span className="progress-label">
+                        {
+                            trazabilidad?.entregadoPor
+                                ?
+                                <>
+                                    {props.orden == 1 ? "Preparó:" : "Recibió:"}
+                                    {trazabilidad?.entregadoPor ?? ""}
+                                </>
+                                :
+                                ''
+                        }
+                    </span>
                     {
-                        trazabilidad?.recibidoPor
-                            ?
-                            <>
-                                {props.orden == 1 ? "Solicitó:" : "Entregó:"}
-                                {trazabilidad?.recibidoPor ?? ""}
-                            </>
-                            :
-                            ''
-                    }
-                </span>
-                <span className="progress-label">
-                    {
-                        trazabilidad?.entregadoPor
-                            ?
-                            <>
-                                {props.orden == 1 ? "Preparó:" : "Recibió:"}
-                                {trazabilidad?.entregadoPor ?? ""}
-                            </>
-                            :
-                            ''
-                    }
-                </span>
-                {
-                    trazabilidad
-                    ? <button className="btn disabled btn-outline-primary">Guardado</button>
-                    : <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</button>
+                        trazabilidad
+                            ? <button className="btn disabled btn-outline-primary">Guardado</button>
+                            : <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</button>
 
-                }
-                
-                
-            </>
-            {/* {
-                step == props.id - 1 ?
-                    <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</button>
-                    : <button className="btn disabled btn-outline-primary">Guardado</button>
-            }
-            {
-                step >= props.id ?
-                    
-                    : <></>
-            } */}
+                    }
 
+
+                </>
+            </div>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5 text-light mx-auto" id="exampleModalLabel">Registro EGRESO MUESTRA</h1>
+                        </div>
+                        <div className="modal-body">
+                            <form className="w-50 mx-auto" onSubmit={handleSubmit}>
+                                <input type="hidden" name="punto_de_control_id" value="" />
+                                <div className="d-flex gap-2 mb-3">
+                                    <label htmlFor="entregado_por" className="col-form-label">Entrega:</label>
+                                    <input type="text" onChange={handleChange} name="entregado_por" className="form-control" id="entregado_por" />
+                                </div>
+                                <div className="d-flex gap-3 mb-3">
+                                    <label htmlFor="recibido_por" className="col-form-label">Recibe:</label>
+                                    <input type="text" onChange={handleChange} name="recibido_por" className="form-control" id="recibido_por" />
+                                </div>
+                                <div className="d-flex justify-content-center gap-2">
+                                    <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
