@@ -11,8 +11,8 @@ export const adaptarTrazabilidadDesdeApi = (apiTrazabilidad) => ({
 });
   
 export const adaptarTrazabilidadParaApi = (appTrazabilidad) => ({
-    model_id: appTrazabilidad.model_id,
-    recibido_por: appTrazabilidad.recibido_por,
-    entregado_por: appTrazabilidad.entregado_por,
+    model_id: appTrazabilidad.modelId,
+    recibido_por: appTrazabilidad.recibidoPor,
+    entregado_por: appTrazabilidad.entregadoPor,
     url_informe: appTrazabilidad.url_informe,
 });

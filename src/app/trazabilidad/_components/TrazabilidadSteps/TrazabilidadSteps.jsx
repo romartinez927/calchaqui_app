@@ -12,37 +12,30 @@ function TrazabilidadSteps(props) {
     const [puntosDeControl, setPuntosDeControl] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     
+    console.log(props.id)
+    async function fetchData() {
+        try {
+            const adaptedData = await getTrazabilidadDeMuestra(props.idMuestra);
+            setTrazabilidades(adaptedData);
+            console.log(adaptedData)
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const adaptedData = await getTrazabilidadDeMuestra(props.idMuestra);
-                setTrazabilidades(adaptedData);
+            const puntosControl = await getPuntosDeControl()
+            setPuntosDeControl(puntosControl)
 
-                const puntosControl = await getPuntosDeControl()
-                setPuntosDeControl(puntosControl)
-
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setIsLoading(false);
-            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false);
         }
+    }
+    useEffect(() => {
         fetchData();
     }, []);
 
-    // useEffect(() => {
-    //     if (trazabilidad.punto_de_control_id) {
-    //         let trazabilidadPunto = trazabilidad.punto_de_control_id
-    //         setCurrentStep(trazabilidadPunto++);
-    //     }
-    // }, [trazabilidad.punto_de_control_id]);
-
-  
-
-    
-    
-    
+    const handleChildSubmit = async () => {
+        console.log("holiis")
+        await fetchData()
+    };
 
     return (
         <section className="step-wizard mt-2">
@@ -54,10 +47,11 @@ function TrazabilidadSteps(props) {
                             <Step
                                 key={punto.id}
                                 puntoDeControlId={punto.id}
-                                idMuestra={props.id}
+                                idMuestra={props.idMuestra}
                                 puntoControlNombre={punto.nombre}
                                 orden={punto.orden}
                                 trazabilidades={trazabilidades}
+                                onChildSubmit={handleChildSubmit}
                             />
                         ))
                 }

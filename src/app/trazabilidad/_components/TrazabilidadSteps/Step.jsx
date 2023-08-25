@@ -1,9 +1,11 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { formatDate } from '@/utils/dateUtils'
+import { postTrazabilidad } from '@/api/setTrazabilidad';
+import { getTrazabilidadDeMuestra } from '@/api/getTrazabilidadDeMuestra';
 
 function Step(props) {
-    const { puntoDeControlId, idMuestra, puntoControlNombre, orden, trazabilidades } = props;
+    const { puntoDeControlId, idMuestra, puntoControlNombre, orden, trazabilidades, onChildSubmit } = props;
     const [trazabilidad, setTrazabilidad] = useState({
         fecha: '',
         hora: '',
@@ -13,41 +15,34 @@ function Step(props) {
     const [formData, setFormData] = useState({
         entregadoPor: '',
         recibidoPor: '',
-        puntoDeControlId: null,
+        modelId: idMuestra,
     })
-    const [puntoDeControlSeleccionado, setPuntoDeControlSeleccionado] = useState(null)
 
     useEffect(() => {
         setTrazabilidad(getTrazabilidad)
     }, [trazabilidades])
 
-    console.log(formData);
     const getTrazabilidad = () => {
         const resultadoBusqueda = trazabilidades?.find(trazabilidad => trazabilidad.puntoDeControlId === puntoDeControlId);
-        console.warn('resultado', resultadoBusqueda);
         return resultadoBusqueda;
     }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value, puntoDeControlId: puntoDeControlId });
+        setFormData({ ...formData, [name]: value, modelId: idMuestra });
     }
 
     const handleSubmit = async (e) => {
-        console.warn(formData)
         e.preventDefault();
-        // try {
-        //     const response = await postTrazabilidad(formData)
-        //     if (response.ok) {
-        //         setCurrentStep(response.data.punto_de_control_id); // Actualiza el estado con el valor de la respuesta
-
-        //         alert("trazabilidad creada con éxito");
-        //     }
-        // } catch (error) {
-        //     if (error.response = 422) {
-        //         console.log(error)
-        //     }
-        // }
+        try {
+            const response = await postTrazabilidad(formData);
+            alert("trazabilidad creada con éxito");
+            onChildSubmit();
+        } catch (error) {
+            if (error.response = 422) {
+                console.log(error)
+            }
+        }
     }
 
     return (
