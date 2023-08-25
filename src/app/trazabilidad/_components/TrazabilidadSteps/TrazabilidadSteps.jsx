@@ -53,10 +53,10 @@ function TrazabilidadSteps(props) {
                         : puntosDeControl.map(punto => (
                             <Step
                                 key={punto.id}
-                                id={punto.id}
+                                puntoDeControlId={punto.id}
                                 idMuestra={props.id}
                                 puntoControlNombre={punto.nombre}
-                                orden={punto.id}
+                                orden={punto.orden}
                                 trazabilidades={trazabilidades}
                             />
                         ))
