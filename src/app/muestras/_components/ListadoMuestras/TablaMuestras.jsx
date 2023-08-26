@@ -94,43 +94,43 @@ export default function TablaMuestras({ muestras, isLoading }) {
                     <tbody>
                         {
                             muestras.map((muestra) => (
-                                <tr key={muestra.id}>
+                                <tr key={muestra?.id}>
                                     <td>
-                                        <p>{muestra.id}</p>
+                                        <p>{muestra?.id}</p>
                                     </td>
                                     <td>
-                                        <p>{formatDate(muestra.fechaAlta, "DD/MM/YYYY")}</p>
+                                        <p>{formatDate(muestra?.fechaAlta, "DD/MM/YYYY")}</p>
                                     </td>
                                     <td>
-                                        <p>{muestra.paciente.dni}</p>
+                                        <p>{muestra?.paciente?.dni}</p>
                                     </td>
                                     <td>
-                                        <p className="mb-0">{muestra.paciente.nombre}</p>
-                                        <p className="mt-0">{muestra.paciente.apellido}</p>
+                                        <p className="mb-0">{muestra?.paciente?.nombre}</p>
+                                        <p className="mt-0">{muestra?.paciente?.apellido}</p>
                                     </td>
                                     <td>
-                                        <p>{muestra.tipo_muestra?.nombre}</p>
+                                        <p>{muestra?.tipo_muestra?.nombre}</p>
                                     </td>
                                     <td>
-                                        <p>{muestra.subtipo_muestra?.nombre}</p>
+                                        <p>{muestra?.subtipo_muestra?.nombre}</p>
                                     </td>
                                     <td>
-                                        <p>{muestra.material}</p>
+                                        <p>{muestra?.material}</p>
                                     </td>
                                     <td>
-                                        <p>{muestra.preparador}</p>
+                                        <p>{muestra?.preparador}</p>
                                     </td>
                                     <td>
-                                        <p>{muestra.medico}</p>
+                                        <p>{muestra?.medico}</p>
                                     </td>
                                     <td>
-                                        <p>{muestra.puntoGeneracion}</p>
+                                        <p>{muestra?.puntoGeneracion}</p>
                                     </td>
                                     <td>
                                         <p>GENERACIÓN 1er Piso</p>
                                     </td>
                                     <td>
-                                        <Link href={`/trazabilidad/${muestra.id}`} className="nav-link " >
+                                        <Link href={`/trazabilidad/${muestra?.id}`} className="nav-link " >
                                             <img src="/flecha.png" className="btn-muestras" alt="Ir a Trazabilidad" />
                                         </Link>
                                     </td>

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import FormInput from "@/app/muestras/_components/Inputs/FormInput"
 import FormSelect from "../FormSelect/FormSelect"
 import { postMuestra } from "@/api/setMuestra"
+import { getPacientePorDni } from "@/api/getPaciente"
 
 export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectServicios, selectSubtipos }) {
     const [subtipos, setSubtipos] = useState(selectSubtipos)
@@ -28,6 +29,10 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
         atb: '',
     })
     const [errors, setErrors] = useState(null)
+    const [paciente, setPaciente] = useState({
+        nombre: '',
+        apellido: '',
+    })
 
     const handleChange = (event) => {
         setErrors(null);
@@ -74,9 +79,24 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
 
         }
     }
+    // const prueba = "42758921"
+    // const buscarPacientePorDNI = async (prueba) => {
+    //     try {
+    //         const response = await getPacientePorDni(prueba);
+    //         console.log(response)
+            
+    //     } catch (error) {
+    //         console.error('Error buscando paciente:', error);
+    //     }
+    // };
+    // buscarPacientePorDNI(prueba)
+    
 
     return (
         <form className="form-datos-paciente needs-validation" noValidate onSubmit={handleSubmit}  >
+            {
+                paciente != null ? "hola" : "chau"
+            }
             <div className="datos-container">
                 <div className='d-flex justify-content-between align-items-center header div'>
                     <h5 className="fw-bold">Alta de Muestras</h5>

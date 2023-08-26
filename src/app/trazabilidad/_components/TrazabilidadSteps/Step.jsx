@@ -28,16 +28,16 @@ function Step(props) {
     }
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value, modelId: idMuestra });
+        const { name, value } = event.target
+        setFormData({ ...formData, [name]: value, modelId: idMuestra })
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await postTrazabilidad(formData);
-            alert("trazabilidad creada con éxito");
-            onChildSubmit();
+            const response = await postTrazabilidad(formData)
+            onChildSubmit()
+            
         } catch (error) {
             if (error.response = 422) {
                 console.log(error)
@@ -77,14 +77,9 @@ function Step(props) {
                                 ''
                         }
                     </span>
-                    {
-                        trazabilidad
-                            ? <button className="btn disabled btn-outline-primary">Guardado</button>
-                            : <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</button>
-
-                    }
-
-
+                    <button className={trazabilidades.length + 1 == orden ? "btn btn-outline-primary" : "btn disabled btn-outline-primary"} data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        {trazabilidades.length + 1 > orden ? "Guardado" : "Guardar"}
+                    </button>
                 </>
             </div>
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
