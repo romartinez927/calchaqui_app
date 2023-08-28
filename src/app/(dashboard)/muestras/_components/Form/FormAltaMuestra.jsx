@@ -5,8 +5,7 @@ import "./FormAltaMuestra.css"
 import { useState, useEffect } from "react"
 import FormInput from "@/app/(dashboard)/muestras/_components/Inputs/FormInput"
 import FormSelect from "../FormSelect/FormSelect"
-import { postMuestra } from "@/api/setMuestra"
-import { getPacientePorDni } from "@/api/getPacientePorDni"
+import { postMuestra } from "@/api/muestras/setMuestra"
 
 export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectServicios, selectSubtipos }) {
     const [subtipos, setSubtipos] = useState(selectSubtipos)

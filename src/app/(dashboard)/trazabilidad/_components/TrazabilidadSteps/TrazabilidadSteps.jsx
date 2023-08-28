@@ -1,9 +1,8 @@
 "use client"
-import { getTrazabilidadDeMuestra } from "@/api/getTrazabilidadDeMuestra";
 import "./TrazabilidadSteps.css"
+import { getTrazabilidadDeMuestra } from "@/api/trazabilidad/getTrazabilidadDeMuestra";
 import { useEffect, useState } from "react";
-import { postTrazabilidad } from "@/api/setTrazabilidad";
-import { getPuntosDeControl } from "@/api/getPuntosDeControl";
+import { getPuntosDeControl } from "@/api/puntos_de_control/getPuntosDeControl";
 import Step from "./Step";
 import Skeleton from "../DatosMuestra/Skeleton";
 
@@ -11,8 +10,6 @@ function TrazabilidadSteps(props) {
     const [trazabilidades, setTrazabilidades] = useState([])
     const [puntosDeControl, setPuntosDeControl] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    
-    console.log(props.id)
     async function fetchData() {
         try {
             const adaptedData = await getTrazabilidadDeMuestra(props.idMuestra);

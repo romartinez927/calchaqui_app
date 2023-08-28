@@ -3,7 +3,7 @@
 import Button from "@/components/Button/Button"
 import "./muestras.css"
 import { useEffect, useState, useContext } from "react"
-import { getMuestras } from "@/api/getMuestras.js"
+import { getMuestras } from "@/api/muestras/getMuestras"
 import TablaMuestras from "@/app/(dashboard)/muestras/_components/ListadoMuestras/TablaMuestras"
 import {AuthContext} from "../../../context/AuthContext"
 

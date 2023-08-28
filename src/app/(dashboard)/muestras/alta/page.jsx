@@ -1,7 +1,7 @@
-import { getObrasSociales } from '@/api/getObrasSociales'
-import { getServicios } from '@/api/getServicios'
-import { getSubtipos } from '@/api/getSubtipos'
-import { getTipos } from '@/api/getTipos'
+import { getObrasSociales } from '@/api/obras_sociales/getObrasSociales'
+import { getServicios } from '@/api/servicios/getServicios'
+import { getSubtipos } from '@/api/muestras/getSubtipos'
+import { getTipos } from '@/api/muestras/getTipos'
 import FormAltaMuestra from '@/app/(dashboard)/muestras/_components/Form/FormAltaMuestra'
 import React from 'react'
 import "./alta.css"

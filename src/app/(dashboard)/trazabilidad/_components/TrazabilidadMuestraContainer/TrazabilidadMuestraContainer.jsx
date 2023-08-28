@@ -1,6 +1,6 @@
 "use client"
 
-import { getMuestra } from '@/api/getMuestra';
+import { getMuestra } from '@/api/muestras/getMuestra';
 import React, { useEffect, useState } from 'react'
 import "../DatosMuestra/datosMuestra.css"
 import DatosMuestra from '../DatosMuestra/DatosMuestra';

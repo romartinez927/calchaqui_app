@@ -1,8 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { formatDate } from '@/utils/dateUtils'
-import { postTrazabilidad } from '@/api/setTrazabilidad';
-import { getTrazabilidadDeMuestra } from '@/api/getTrazabilidadDeMuestra';
+import { postTrazabilidad } from '@/api/trazabilidad/setTrazabilidad';
 
 function Step(props) {
     const { puntoDeControlId, idMuestra, puntoControlNombre, orden, trazabilidades, onChildSubmit } = props;
