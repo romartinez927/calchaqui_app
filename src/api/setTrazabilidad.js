@@ -8,8 +8,6 @@ export const postTrazabilidad = async (formData) => {
     try {
         const dataParaApi = adaptarTrazabilidadParaApi(formData)
         const response = await axios.post(`${API_BASE_URL}/${SET_TRAZABILIDAD}`, dataParaApi)
-
-        console.log(response)
         return response
     } catch (error) {
         console.error("Error al crear trazabilidad", error)

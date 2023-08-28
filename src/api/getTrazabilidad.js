@@ -5,7 +5,7 @@ const GET_TRAZABILIDAD = process.env.NEXT_PUBLIC_GET_TRAZABILIDAD
 
 export const getTrazabilidad = async (id) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/${GET_TRAZABILIDAD }/${id}`)
+        const response = await fetch(`${API_BASE_URL}/${GET_TRAZABILIDAD}/${id}`)
         if (!response.ok) {
             throw new Error("Fallo el fetch")
         }
