@@ -9,10 +9,8 @@ export const getTrazabilidad = async (id) => {
         if (!response.ok) {
             throw new Error("Fallo el fetch")
         }
-
         const trazabilidad = await response.json()
         const adaptedTrazabilidad = adaptarTrazabilidadDesdeApi(trazabilidad)
-
         return adaptedTrazabilidad
     } catch (error) {
         console.error("Error en el fetch", error)

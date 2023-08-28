@@ -6,7 +6,6 @@ const GET_PUNTOS_DE_CONTROL = process.env.NEXT_PUBLIC_GET_PUNTOS_DE_CONTROL
 export const getPuntosDeControl = async () => {
     try {
         const response = await fetch(`${API_BASE_URL}/${GET_PUNTOS_DE_CONTROL}`);
-
         if (!response.ok) {
             throw new Error('Failed to fetch.');
         }
