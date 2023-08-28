@@ -1,35 +1,34 @@
 "use client"
-
 import { useState, createContext, useEffect } from "react"
-
 export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-    const [accessToken, setAccessToken] = useState("")
-    const [user, setUser] = useState({
-        email: '',
-        password: '',
-        device_name: "web"
-    })
+    const [accessToken, setAccessToken] = useState(null);
+    const [user, setUser] = useState(null)
 
     function localStorageSet(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
     }
 
-    localStorageSet('user', user);
-    localStorageSet('access-token', accessToken);
-    
-
     const logout = () => {
-        setUser(null)
-        setAccessToken(null)
+        localStorage.clear();
     }
+
+    useEffect(() => {
+      if(!accessToken){
+        localStorageSet('accessToken', accessToken)
+      }
+      if(!user){
+        localStorageSet('user', user)
+      }
+    }, [accessToken, user])
+    
 
     return (
         <AuthContext.Provider
             value={{
-                accessToken,
                 setAccessToken,
+                accessToken,
                 setUser,
                 user,
                 logout,

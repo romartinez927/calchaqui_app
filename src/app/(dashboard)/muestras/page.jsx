@@ -4,8 +4,8 @@ import Button from "@/components/Button/Button"
 import "./muestras.css"
 import { useEffect, useState, useContext } from "react"
 import { getMuestras } from "@/api/getMuestras.js"
-import TablaMuestras from "@/app/muestras/_components/ListadoMuestras/TablaMuestras"
-import {AuthContext} from "../../context/AuthContext"
+import TablaMuestras from "@/app/(dashboard)/muestras/_components/ListadoMuestras/TablaMuestras"
+import {AuthContext} from "../../../context/AuthContext"
 
 export default function Muestras() {
     const {user} = useContext(AuthContext)
