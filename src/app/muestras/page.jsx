@@ -2,16 +2,20 @@
 
 import Button from "@/components/Button/Button"
 import "./muestras.css"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { getMuestras } from "@/api/getMuestras.js"
 import TablaMuestras from "@/app/muestras/_components/ListadoMuestras/TablaMuestras"
+import {AuthContext} from "../../context/AuthContext"
 
 export default function Muestras() {
+    const {user} = useContext(AuthContext)
     const [muestras, setMuestras] = useState([])
     const [muestrasInitial, setMuestrasInitial] = useState([])
     const [fechaInicio, setFechaInicio] = useState("")
     const [fechaFin, setFechaFin] = useState("")
     const [isLoading, setIsLoading] = useState(true)
+
+    console.log(user)
 
     useEffect(() => {
         // Llamada a la función getMuestras y manejo de los datos
