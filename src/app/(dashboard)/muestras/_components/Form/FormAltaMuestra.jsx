@@ -2,12 +2,17 @@
 
 import Button from "@/components/Button/Button"
 import "./FormAltaMuestra.css"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import FormInput from "@/app/(dashboard)/muestras/_components/Inputs/FormInput"
 import FormSelect from "../FormSelect/FormSelect"
 import { postMuestra } from "@/api/muestras/setMuestra"
+import { useRouter } from "next/navigation"
+import { siteConfig } from '@/config/site'
+import { getPacientePorDni } from "@/api/pacientes/getPacientePorDni"
 
 export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectServicios, selectSubtipos }) {
+    const router = useRouter()
+    const debounceRef = useRef()
     const [subtipos, setSubtipos] = useState(selectSubtipos)
     const [atbSeleccionado, setAtbSeleccionado] = useState(false);
     const [formData, setFormData] = useState({
@@ -28,18 +33,13 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
         atb: '',
     })
     const [errors, setErrors] = useState(null)
-    const [paciente, setPaciente] = useState({
-        nombre: '',
-        apellido: '',
-    })
+    const [pacienteExistente, setPacienteExistente] = useState(false)
 
     const handleChange = (event) => {
         setErrors(null);
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     }
-
-    console.log(formData)
 
     const handleAtbSeleccionadoChange = (event) => {
         const seleccionado = event.target.id === "flexRadioDefault1";
@@ -66,6 +66,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
         try {
             const response = await postMuestra(formData)
             // validar si esta todo ok y redirigir a la lista ver "response.ok"
+            router.push(siteConfig.links.muestras)
         }
         catch (error) {
             if (error.response && error.response.status === 422) {
@@ -75,6 +76,41 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
             }
         }
     }
+
+    console.log(subtipos)
+
+    const onQueryChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
+        }
+        debounceRef.current = setTimeout(() => {
+            if (value.length > 1) {
+                envioPeticion(value)
+            } else {
+                console.log("no se encontro paciente");
+            }
+        }, 1000);
+    };
+
+    const envioPeticion = async (query) => {
+        setPacienteExistente(false);
+        const pacienteEncontrado = await getPacientePorDni(query); // Pasar query en lugar de dni
+        console.log(pacienteEncontrado);
+        if (pacienteEncontrado.length == 0) {
+            console.log("dni no registrado");
+        } else {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                nombre: pacienteEncontrado.nombre,
+                apellido: pacienteEncontrado.apellido,
+                obraSocialSelected: pacienteEncontrado.obraSocial,
+            }))
+            setPacienteExistente(true);
+        }
+    };
 
     return (
         <form className="form-datos-paciente needs-validation" noValidate onSubmit={handleSubmit}  >
@@ -92,10 +128,11 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                                 label="Dni"
                                 type="number"
                                 value={formData.dni}
-                                onChange={handleChange}
+                                onChange={onQueryChange}
                                 error={errors?.dni ? errors?.dni[0] : null}
                                 placeholder="Escriba su DNI..."
                                 col="3"
+                                errorTxt={errors?.dni}
                             />
                             <FormInput
                                 name="nombre"
@@ -105,7 +142,8 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                                 onChange={handleChange}
                                 placeholder="Escriba su Nombre..."
                                 col="3"
-
+                                errorTxt={errors?.nombre}
+                                disabled={pacienteExistente}
                             />
                             <FormInput
                                 name="apellido"
@@ -115,16 +153,20 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                                 onChange={handleChange}
                                 placeholder="Escriba su Apellido..."
                                 col="3"
+                                errorTxt={errors?.apellido}
+                                disabled={pacienteExistente}
                             />
                             <FormSelect
                                 name="obraSocialSelected"
                                 label="Obra Social"
                                 type="text"
                                 data={selectObraSocial ?? "Cargando..."}
-                                value={formData?.obraSocialSelected}
+                                value={pacienteExistente? 0 : formData?.obraSocialSelected}
                                 onChange={handleChange}
-                                placeholder="Seleccione Obra Social..."
+                                placeholder={pacienteExistente? formData.obraSocialSelected : "Seleccione Obra Social..."}
                                 col="3"
+                                errorTxt={errors?.obra_social}
+                                disabled={pacienteExistente}
                             />
                         </div>
                     </div>
@@ -143,6 +185,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Seleccione punto..."
                             col="3"
+                            errorTxt={errors?.punto_generacion}
                         />
                         <FormInput
                             name="medicoSolicitante"
@@ -152,6 +195,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Escriba Nombre y Apellido..."
                             col="3"
+                            errorTxt={errors?.medico}
                         />
                         <FormInput
                             name="preparador"
@@ -161,6 +205,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Escriba Nombre..."
                             col="2"
+                            errorTxt={errors?.preparador}
                         />
                         <FormInput
                             name="frascos"
@@ -170,6 +215,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Cant."
                             col="1"
+                            errorTxt={errors?.frascos}
                         />
 
                         <div className="col-sm-12 col-md-6 col-lg-1">
@@ -204,6 +250,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Seleccione tipo..."
                             col="3"
+                            errorTxt={errors?.tipo_muestra_id}
                         />
                         <FormSelect
                             name="subtipoMuestraSelected"
@@ -215,6 +262,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             placeholder="Seleccione subtipo..."
                             col="3"
                             disabled={formData?.tipoMuestraSelected == 0}
+                            errorTxt={errors?.subtipo_muestra_id}
                         />
                         <FormInput
                             name="material"
@@ -224,6 +272,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Datos del material remitido..."
                             col="3"
+                            errorTxt={errors?.material}
                         />
                         <FormInput
                             name="localizacion"
@@ -233,6 +282,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Datos de Localización..."
                             col="3"
+                            errorTxt={errors?.localizacion}
                         />
                     </div>
                     <div className="row">
@@ -244,6 +294,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Diagnóstico Crítico Presuntivo..."
                             col="6"
+                            errorTxt={errors?.diagnostico}
                         />
                         <FormInput
                             name="observaciones"
@@ -253,6 +304,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                             onChange={handleChange}
                             placeholder="Observaciones..."
                             col="6"
+                            errorTxt={errors?.observaciones}
                         />
                     </div>
                 </div>

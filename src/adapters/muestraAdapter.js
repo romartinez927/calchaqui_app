@@ -1,6 +1,6 @@
 export const adaptarMuestraDesdeApi = (apiMuestra) => ({
     id: apiMuestra.id,
-    puntoGeneracion: apiMuestra.punto_generacion,
+    punto_generacion: apiMuestra.punto_generacion,
     frascos: apiMuestra.frascos,
     material: apiMuestra.material,
     medico: apiMuestra.medico,
@@ -13,6 +13,8 @@ export const adaptarMuestraDesdeApi = (apiMuestra) => ({
     subtipo_muestra: apiMuestra.subtipo_muestra,
     fechaAlta: apiMuestra.created_at,
     atb: apiMuestra.atb,
+    servicio: apiMuestra.servicio,
+    trazabilidades: apiMuestra.trazabilidades,
 });
   
 export const adaptarMuestraParaApi = (appMuestra) => ({
@@ -20,7 +22,7 @@ export const adaptarMuestraParaApi = (appMuestra) => ({
     apellido: appMuestra.apellido,
     dni: appMuestra.dni,
     obra_social: appMuestra.obraSocialSelected,
-    punto_generacion: appMuestra.puntoGeneracionSelected,
+    punto_generacion_id: appMuestra.puntoGeneracionSelected,
     tipo_muestra_id: appMuestra.tipoMuestraSelected,
     subtipo_muestra_id: appMuestra.subtipoMuestraSelected,
     frascos: appMuestra.frascos,

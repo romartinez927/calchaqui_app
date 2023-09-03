@@ -12,6 +12,7 @@ export const getMuestras = async (query = "") => {
             throw new Error('Failed to fetch.');
         }
         const dataResponse = await response.json();
+        console.log(dataResponse)
         const adaptedData = dataResponse.map(adaptarMuestraDesdeApi);
         return adaptedData;
     } catch (error) {

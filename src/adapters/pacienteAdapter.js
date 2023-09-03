@@ -1,8 +1,9 @@
 export const adaptarPacienteDesdeApi = (apiPaciente) => ({
-    id: apiPaciente.id,
-    nombre: apiPaciente.nombre,
-    apellido: apiPaciente.apellido,
-    dni: apiPaciente.dni
+    id: apiPaciente?.id,
+    nombre: apiPaciente?.nombre,
+    apellido: apiPaciente?.apellido,
+    dni: apiPaciente?.dni,
+    obraSocial: apiPaciente?.obra_social
 });
   
 export const adaptarPacienteParaApi = (appPaciente) => ({

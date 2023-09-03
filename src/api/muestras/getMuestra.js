@@ -4,6 +4,8 @@ const GET_MUESTRA = process.env.NEXT_PUBLIC_GET_MUESTRA
 
 export const getMuestra = async (idMuestra) => {
     try {
+        
+          
         const response = await fetch(`${API_BASE_URL}/${GET_MUESTRA}/${idMuestra}`)
         if (!response.ok) {
             throw new Error("Fallo el fetch a muestras")

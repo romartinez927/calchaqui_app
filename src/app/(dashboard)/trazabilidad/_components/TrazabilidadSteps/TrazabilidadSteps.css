@@ -8,13 +8,25 @@
     padding: 0;
 }
 
-.step-wizard-list {
+/* .step-wizard-list {
     background: #fff;
     list-style-type: none;
     display: flex;
     padding: 20px 10px;
     position: relative;
-    /* z-index: 10; */
+    z-index: 10;
+    width: 100%;
+} */
+
+.step-wizard-list{
+    background: #fff;
+    color: #333;
+    list-style-type: none;
+    border-radius: 10px;
+    display: flex;
+    padding: 20px 10px;
+    position: relative;
+    z-index: 10;
     width: 100%;
 }
 

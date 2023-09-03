@@ -15,7 +15,6 @@ export default function TablaMuestras({ muestras, isLoading }) {
                 <thead>
                         <tr>
                             <td>
-                                <p>Muestra</p>
                                 <p>N°</p>
                             </td>
                             <td>
@@ -60,7 +59,6 @@ export default function TablaMuestras({ muestras, isLoading }) {
                     <thead>
                         <tr>
                             <td>
-                                <p>Muestra</p>
                                 <p>N°</p>
                             </td>
                             <td>
@@ -124,10 +122,10 @@ export default function TablaMuestras({ muestras, isLoading }) {
                                         <p>{muestra?.medico}</p>
                                     </td>
                                     <td>
-                                        <p>{muestra?.puntoGeneracion}</p>
+                                        <p>{muestra?.servicio?.nombre}</p>
                                     </td>
                                     <td>
-                                        <p>GENERACIÓN 1er Piso</p>
+                                        <p>{muestra?.trazabilidades[muestra?.trazabilidades?.length - 1]?.punto_de_control?.nombre}</p>
                                     </td>
                                     <td>
                                         <Link href={`/trazabilidad/${muestra?.id}`} className="nav-link " >

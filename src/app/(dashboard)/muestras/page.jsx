@@ -5,27 +5,25 @@ import "./muestras.css"
 import { useEffect, useState, useContext } from "react"
 import { getMuestras } from "@/api/muestras/getMuestras"
 import TablaMuestras from "@/app/(dashboard)/muestras/_components/ListadoMuestras/TablaMuestras"
-import {AuthContext} from "../../../context/AuthContext"
+import { AuthContext } from "../../../context/AuthContext"
 
 export default function Muestras() {
-    const {user} = useContext(AuthContext)
+    const { accessToken } = useContext(AuthContext)
     const [muestras, setMuestras] = useState([])
     const [muestrasInitial, setMuestrasInitial] = useState([])
     const [fechaInicio, setFechaInicio] = useState("")
     const [fechaFin, setFechaFin] = useState("")
     const [isLoading, setIsLoading] = useState(true)
 
-    console.log(user)
-
     useEffect(() => {
         // Llamada a la función getMuestras y manejo de los datos
         async function fetchData() {
             try {
+                console.log(accessToken)
                 const adaptedData = await getMuestras();
                 setMuestras(adaptedData);
                 setMuestrasInitial(adaptedData);
                 setIsLoading(false)
-                console.log(adaptedData[0].fechaAlta)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -33,30 +31,36 @@ export default function Muestras() {
         fetchData();
     }, []);
 
+    const searchByDate = () => {
+        const filteredMuestras = muestrasInitial.filter((muestra) => {
+            const muestraFecha = muestra?.fechaAlta.substring(0, 10);
+
+            return (
+                (muestraFecha >= fechaInicio &&
+                    muestraFecha <= fechaFin)
+            );
+        });
+
+        setMuestras(filteredMuestras);
+    }
 
     const search = (event) => {
         const searchTerm = event.target.value.toLowerCase();
-    
+        console.log(searchTerm)
         const filteredMuestras = muestrasInitial.filter((muestra) => {
-            const muestraFecha = new Date(muestra?.fechaAlta);
-            const inicio = new Date(fechaInicio);
-            const fin = new Date(fechaFin);
-    
+
             return (
                 (searchTerm === "" ||
                     muestra?.material?.toLowerCase().includes(searchTerm) ||
                     muestra?.paciente?.nombre.toLowerCase().includes(searchTerm) ||
                     muestra?.paciente?.apellido.toLowerCase().includes(searchTerm) ||
                     muestra?.tipo_muestra?.nombre.toLowerCase().includes(searchTerm) ||
-                    muestra?.fechaAlta?.toLowerCase().includes(searchTerm)) &&
-                (!fechaInicio || !fechaFin ||
-                    (muestraFecha >= inicio && muestraFecha <= fin))
+                    muestra?.fechaAlta?.toLowerCase().includes(searchTerm)) 
             );
         });
-    
+
         setMuestras(filteredMuestras);
 
-        
         if (searchTerm === "") {
             setMuestras(muestrasInitial);
         }
@@ -66,6 +70,10 @@ export default function Muestras() {
         setMuestras(muestrasInitial);
         setFechaInicio("");
         setFechaFin("");
+    };
+
+    const searchButtonClicked = () => {
+        searchByDate();
     };
 
     return (
@@ -82,19 +90,24 @@ export default function Muestras() {
                             <input className="form-control" type="search" placeholder="Ingrese cualquier texto..." onChange={search} />
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
-                            <input className="form-control input-date" type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value) } />
+                            <input className="form-control input-date" type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} />
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
-                            <input className="form-control input-date" type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value) } />
+                            <input className="form-control input-date" type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
                         </div>
                         <div className="d-flex col-sm-12 col-md-6 col-lg-1 gap-2">
-                            <Button nombre="Buscar" color="azul" />
-                            <Button nombre="Limpiar" color="rojo" onClick={resetFilters}/>
+                            <Button nombre="Buscar" color="azul" onClick={searchButtonClicked} />
+                            <Button nombre="Limpiar" color="rojo" onClick={resetFilters} />
                         </div>
                     </div>
                 </div>
             </div>
-            <TablaMuestras muestras={muestras} isLoading={isLoading}/>
+            <TablaMuestras muestras={muestras} isLoading={isLoading} />
+            {muestras == 0 ?
+                <div className="d-flex justify-content-center align-items-center my-auto" style={{ height: "100px" }}>
+                    <p>No se encontraron muestras...</p>
+                </div>
+                : <></>}
         </main>
     )
 }

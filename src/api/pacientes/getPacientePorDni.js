@@ -10,6 +10,9 @@ export const getPacientePorDni = async (dniPaciente) => {
             throw new Error("Fallo el fetch a pacientes")
         }
         const paciente = await response.json()
+        if (paciente.paciente.length == 0) {
+            return []
+        }
         const adaptedPaciente = adaptarPacienteDesdeApi(paciente.paciente[0])
         return adaptedPaciente
     } catch (error) {
