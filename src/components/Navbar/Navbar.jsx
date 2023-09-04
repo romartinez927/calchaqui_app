@@ -1,3 +1,4 @@
+
 import Link from "next/link"
 import "./navbar.css"
 import logo from "../../assets/logo_tekno.png"

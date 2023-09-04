@@ -1,8 +1,11 @@
 export default function FormSelect(props) {
-    const {col, label, name, placeholder, id, onChange, disabled, errorTxt, data, value} = props
+    const {col, label, name, placeholder, requerido, onChange, disabled, errorTxt, data, value} = props
     return (
         <div className={`col-sm-12 col-md-6 col-lg-${col} py-2`}>
-            <label className="form-label" htmlFor={name}>{label}</label>
+            <label className="form-label" htmlFor={name}>
+                {label}
+                {requerido && "*"}
+            </label>
             <select className="form-select" id={name} name={name} value={value} onChange={onChange} disabled={disabled}>
                 <option value="0">{placeholder}</option>
                 {

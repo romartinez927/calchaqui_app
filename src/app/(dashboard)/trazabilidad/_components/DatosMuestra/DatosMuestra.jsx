@@ -23,7 +23,7 @@ function DatosMuestra(props) {
                         : <div className="card-body text-center d-flex flex-column gap-2">
                             <h5>{muestra.paciente?.nombre} {muestra.paciente?.apellido}</h5>
                             <p>Dni: {muestra.paciente?.dni}</p>
-                            <h5>Muestra Nro</h5>
+                            <h5>Muestra Nro:</h5>
                             <p>{muestra.id}</p>
                         </div>
                 }
@@ -34,12 +34,12 @@ function DatosMuestra(props) {
                     isLoading ?
                         <Skeleton />
                         : <div className='card-body'>
-                            <h6>Tipo</h6>
+                            <h6>Tipo:</h6>
                             <p>{muestra.tipo_muestra?.nombre}</p>
-                            <h6>Subtipo</h6>
+                            <h6>Subtipo:</h6>
                             <p>{muestra.subtipo_muestra?.nombre}</p>
                             <h6>Cantidad de Frascos: {muestra.frascos}</h6>
-                            <h6>ATB</h6>
+                            <h6>{muestra.atb && "ATB"}</h6>
                             <p>{muestra.atb}</p>
                         </div>
                 }
@@ -50,13 +50,13 @@ function DatosMuestra(props) {
                     isLoading ?
                         <Skeleton />
                         : <div className='card-body'>
-                            <h6>Médico Solicitante</h6>
+                            <h6>Médico Solicitante:</h6>
                             <p>{muestra.medico}</p>
-                            <h6>Preparador</h6>
+                            <h6>Preparador:</h6>
                             <p>{muestra.preparador}</p>
-                            <h6>Material Remitido</h6>
+                            <h6>Material Remitido: {muestra.material? "" : "-"}</h6>
                             <p>{muestra.material}</p>
-                            <h6>Localización</h6>
+                            <h6>Localización: {muestra.localizacion? "" : "-"}</h6>
                             <p>{muestra.localizacion}</p>
                         </div>
                 }
@@ -68,10 +68,10 @@ function DatosMuestra(props) {
                         isLoading ?
                             <Skeleton />
                             : <div className='card-body'>
-                                <h6>Observaciones</h6>
-                                <p>{muestra.observaciones}</p>
-                                <h6>Diagóstico Crítico Presuntivo</h6>
-                                <p>{muestra.diagnostico}</p>
+                                <h6>Observaciones:</h6>
+                                <p>{muestra.observaciones? muestra.observaciones : "-"}</p>
+                                <h6>Diagóstico Crítico Presuntivo:</h6>
+                                <p>{muestra.diagnostico? muestra.diagnostico : "-"}</p>
                             </div>
                     }
                 </div>

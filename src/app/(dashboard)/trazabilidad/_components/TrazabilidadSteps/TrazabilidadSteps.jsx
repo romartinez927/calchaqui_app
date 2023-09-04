@@ -21,7 +21,6 @@ function TrazabilidadSteps(props) {
         try {
             const adaptedData = await getTrazabilidadDeMuestra(props.idMuestra);
             setTrazabilidades(adaptedData);
-            console.log(adaptedData)
 
             const puntosControl = await getPuntosDeControl()
             setPuntosDeControl(puntosControl)
@@ -81,7 +80,7 @@ function TrazabilidadSteps(props) {
                                 <form className="w-50 mx-auto" onSubmit={handleSubmit}>
                                     <div className="d-flex gap-2 mb-3">
                                         <label htmlFor="entregado_por" className="col-form-label">Entrega:</label>
-                                        <input type="text" onChange={handleChange} name="entregadoPor" className="form-control" id="entregado_por" />
+                                        <input type="text" onChange={handleChange} name="entregadoPor"  className="form-control" id="entregado_por" />
                                     </div>
                                     <div className="d-flex gap-3 mb-3">
                                         <label htmlFor="recibido_por" className="col-form-label">Recibe:</label>

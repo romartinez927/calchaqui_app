@@ -11,8 +11,6 @@ function Step(props) {
         recibidoPor: '',
         entregadoPor: '',
     })
-    console.log(trazabilidades.length)
-    console.log(orden)
 
     useEffect(() => {
         setTrazabilidad(getTrazabilidad)

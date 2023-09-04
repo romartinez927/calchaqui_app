@@ -5,8 +5,11 @@ import React, { useEffect, useState } from 'react'
 import "../DatosMuestra/datosMuestra.css"
 import DatosMuestra from '../DatosMuestra/DatosMuestra';
 import TrazabilidadSteps from '../TrazabilidadSteps/TrazabilidadSteps';
+import { useStateContext } from '@/context/ContextProvider';
+import ProtectedRoute from '@/app/auth/ProtectedRoute';
 
 function TrazabilidadMuestraContainer(props) {
+    const { accessToken } = useStateContext()
     const [muestra, setMuestra] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -22,15 +25,16 @@ function TrazabilidadMuestraContainer(props) {
                 setIsLoading(false)
             }
         }
-        fetchData();
+        accessToken && fetchData();
     }, []);
 
-    return (
-        <div>
-            <DatosMuestra muestra={muestra} isLoading={isLoading}/>
-            <TrazabilidadSteps idMuestra={props.idMuestra}/>
-        </div>
-    )
+        return (
+            <ProtectedRoute>
+                <DatosMuestra muestra={muestra} isLoading={isLoading}/>
+                <TrazabilidadSteps idMuestra={props.idMuestra}/>
+            </ProtectedRoute>
+        )
+    
 }
 
 export default TrazabilidadMuestraContainer

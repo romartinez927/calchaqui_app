@@ -1,10 +1,13 @@
 import "./FormInput.css"
 
 export default function FormInput(props) {
-    const { name, label, type, disabled, value, placeholder, onChange, col, errorTxt } = props
+    const { name, label, type, disabled, value, placeholder, requerido, onChange, col, errorTxt } = props
     return (
         <div className={`col-sm-12 col-md-6 col-lg-${col} py-2`}>
-            <label htmlFor={name} className="form-label">{label}</label>
+            <label htmlFor={name} className="form-label">
+                {label}
+                {requerido && "*"}
+            </label>
             <input
                 name={name}
                 type={type}

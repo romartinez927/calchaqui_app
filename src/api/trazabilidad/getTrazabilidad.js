@@ -5,11 +5,20 @@ const GET_TRAZABILIDAD = process.env.NEXT_PUBLIC_GET_TRAZABILIDAD
 
 export const getTrazabilidad = async (id) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/${GET_TRAZABILIDAD}/${id}`)
-        if (!response.ok) {
-            throw new Error("Fallo el fetch")
-        }
-        const trazabilidad = await response.json()
+        const url = `${API_BASE_URL}/${GET_TRAZABILIDAD}/${id}`
+        const token = localStorage.getItem('ACCESS_TOKEN');
+
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: url,
+            headers: { 
+                'Authorization': `Bearer ${token}`
+            }
+          };
+
+        const response = await axios.request(config)
+        const trazabilidad = response.data
         const adaptedTrazabilidad = adaptarTrazabilidadDesdeApi(trazabilidad)
         return adaptedTrazabilidad
     } catch (error) {

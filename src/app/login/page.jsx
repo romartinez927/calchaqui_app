@@ -1,14 +1,14 @@
 "use client"
-import { apiLogin } from '@/api/apiLogin';
+import { apiLogin } from '@/api/login/apiLogin';
 import React, { useState, useContext } from 'react'
-import { AuthContext } from '@/context/AuthContext';
+import { useStateContext } from '@/context/ContextProvider';
 import { useRouter } from 'next/navigation';
 import { siteConfig } from '@/config/site';
 import "./login.css"
 
 function Login() {
     const router = useRouter();
-    const { setAccessToken, setUser } = useContext(AuthContext)
+    const { setAccessToken, setUser } = useStateContext()
     const [error, setError] = useState('');
 
     const [dataForm, setDataForm] = useState({
@@ -22,6 +22,7 @@ function Login() {
         try {
             const response = await apiLogin(dataForm)
             setAccessToken(response.token)
+
             setUser(response.user);
             router.push(siteConfig.links.muestras)
         } catch (error) {
@@ -47,7 +48,7 @@ function Login() {
                         <span className="input-icon">
                             <i className="fa-solid fa-envelope"></i>
                         </span>
-                        <input type="email" name="email" value={dataForm.email} onChange={handleChange} placeholder='usuario' />
+                        <input type="email" name="email" id="email" value={dataForm.email} onChange={handleChange} placeholder='usuario' autoComplete='true'/>
                     </div>
                     <span className="error-text">{error?.email}</span>
                 </div>
@@ -57,15 +58,11 @@ function Login() {
                         <span className="input-icon">
                         <i className="fa-solid fa-lock"></i>
                         </span>
-                        <input type="password" name="password" value={dataForm.password} onChange={handleChange} placeholder='********' />
+                        <input type="password" name="password" id="password" value={dataForm.password} onChange={handleChange} placeholder='********' />
                     </div>
                     <span className="error-text">{error?.password}</span>
                 </div>
                 <div><span className="error-text">{error?.credenciales}</span></div>
-                <input className="form-check-input ms-2" type="checkbox" value="" id="flexCheckDefault" />
-                <label className="form-check-label fw-normal ps-1" htmlFor="flexCheckDefault">
-                    Recordar usuario
-                </label>
                 <div className='mt-4'>
                     <button type="submit">Ingresar</button>
                 </div>

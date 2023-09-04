@@ -2,9 +2,9 @@ import Button from '@/components/Button/Button'
 import React from 'react'
 
 function TrazabilidadHeader() {
-  return (
-    <div>
-        <div className='d-flex flex-wrap justify-content-between align-items-center box mx-4'>
+    return (
+        <div>
+            <div className='d-flex flex-wrap justify-content-between align-items-center box mx-4'>
                 <h5 className="fw-bold">Trazabilidad de la Muestra</h5>
                 <div className="d-flex gap-3">
                     <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#suspenderModal" style={{ fontSize: "14px" }}>Suspender</button>
@@ -36,8 +36,8 @@ function TrazabilidadHeader() {
                     </div>
                 </div>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default TrazabilidadHeader

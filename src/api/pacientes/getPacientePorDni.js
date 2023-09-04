@@ -1,15 +1,26 @@
 import { adaptarPacienteDesdeApi } from "@/adapters/pacienteAdapter"
+import axios from "axios"
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const GET_PACIENTE_POR_DNI = process.env.NEXT_PUBLIC_GET_PACIENTE_POR_DNI
 
 export const getPacientePorDni = async (dniPaciente) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/${GET_PACIENTE_POR_DNI}?dni=${dniPaciente}`)
-        if (!response.ok) {
-            throw new Error("Fallo el fetch a pacientes")
-        }
-        const paciente = await response.json()
+        const token = localStorage.getItem('ACCESS_TOKEN')
+        const url = `${API_BASE_URL}/${GET_PACIENTE_POR_DNI}?dni=${dniPaciente}`
+        
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: url,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+
+        const response = await axios.request(config)
+        const paciente = response.data
+
         if (paciente.paciente.length == 0) {
             return []
         }
