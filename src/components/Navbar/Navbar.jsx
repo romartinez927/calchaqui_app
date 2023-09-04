@@ -9,7 +9,9 @@ export default function Navbar() {
         <nav >
             <header className="header d-none d-xl-flex flex-column">
                 <div className="logo">
-                    <img src={logo.src} alt="Logo Clínica Calchaqui"/>
+                    <Link href="/">
+                        <img src={logo.src} alt="Logo Clínica Calchaqui"/>
+                    </Link>
                 </div>
                 <div className="nav-items">
                     <ul>

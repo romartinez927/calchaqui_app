@@ -10,6 +10,7 @@ function Login() {
     const router = useRouter();
     const { setAccessToken, setUser } = useStateContext()
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false)
 
     const [dataForm, setDataForm] = useState({
         email: '',
@@ -20,14 +21,15 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
+            setIsLoading(true)
             const response = await apiLogin(dataForm)
             setAccessToken(response.token)
-
             setUser(response.user);
             router.push(siteConfig.links.muestras)
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 setError(error.response.data.errors)
+                setIsLoading(false)
             } else {
                 alert('Something went wrong. Please try again later.')
             }
@@ -64,7 +66,11 @@ function Login() {
                 </div>
                 <div><span className="error-text">{error?.credenciales}</span></div>
                 <div className='mt-4'>
-                    <button type="submit">Ingresar</button>
+                    {
+                        isLoading ? 
+                        <button type="submit" className='disabled'>Ingresando...</button>
+                        : <button type="submit">Ingresar</button>
+                    }
                 </div>
             </form>
         </div>

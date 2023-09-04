@@ -11,11 +11,11 @@ import { siteConfig } from '@/config/site'
 import { getPacientePorDni } from "@/api/pacientes/getPacientePorDni"
 import { useStateContext } from "@/context/ContextProvider"
 import ProtectedRoute from "@/app/auth/ProtectedRoute"
+import "@/components/Button/button.css"
 
 export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectServicios, selectSubtipos }) {
     const router = useRouter()
     const debounceRef = useRef()
-    const { accessToken } = useStateContext()
     const [subtipos, setSubtipos] = useState(selectSubtipos)
     const [atbSeleccionado, setAtbSeleccionado] = useState(false);
     const [formData, setFormData] = useState({
@@ -37,6 +37,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
     })
     const [errors, setErrors] = useState(null)
     const [pacienteExistente, setPacienteExistente] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleChange = (event) => {
         setErrors(null)
@@ -68,13 +69,14 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true)
             const response = await postMuestra(formData)
-            // validar si esta todo ok y redirigir a la lista ver "response.ok"
             router.push(siteConfig.links.muestras)
         }
         catch (error) {
             if (error.response && error.response.status === 422) {
                 setErrors(error.response.data.errors);
+                setIsLoading(false)
             } else {
                 console.error('Error en la solicitud:', error);
             }
@@ -117,7 +119,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                 <div className="datos-container">
                     <div className='d-flex justify-content-between align-items-center header div'>
                         <h5 className="fw-bold">Alta de Muestras</h5>
-                        <Button type="submit" nombre="Guardar e Imprimir" color="verde" />
+                        <button type="submit" className={isLoading? "button verde disabled" : "button verde"}>{isLoading ? "Guardando..." : "Guardar e Imprimir"}</button>
                     </div>
                     <div className="div">
                         <h6 className="fw-bold">Datos del Paciente</h6>
@@ -283,6 +285,7 @@ export default function FormAltaMuestra({ selectObraSocial, selectTipos, selectS
                                 placeholder="Datos del material remitido..."
                                 col="3"
                                 errorTxt={errors?.material}
+                                requerido
                             />
                             <FormInput
                                 name="localizacion"

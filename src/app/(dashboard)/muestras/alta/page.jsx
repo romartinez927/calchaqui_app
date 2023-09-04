@@ -13,7 +13,7 @@ async function AltaMuestras() {
     const selectSubtipos = await getSubtipos()
 
     return (
-        <main className='alta-muestras'>
+        <main className='alta-muestras mt-2'>
             <FormAltaMuestra
                 selectObraSocial={selectObraSocial}
                 selectTipos={selectTipos}
