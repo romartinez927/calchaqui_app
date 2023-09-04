@@ -12,6 +12,7 @@ function TrazabilidadMuestraContainer(props) {
     const { accessToken } = useStateContext()
     const [muestra, setMuestra] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [puntoGeneracion, setPuntoGeneracion] = useState(null)
 
     useEffect(() => {
         // Llamada a la función getMuestras y manejo de los datos
@@ -19,6 +20,7 @@ function TrazabilidadMuestraContainer(props) {
             try {
                 const adaptedData = await getMuestra(props.idMuestra);
                 setMuestra(adaptedData);
+                setPuntoGeneracion(adaptedData.servicio.nombre)
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -31,7 +33,7 @@ function TrazabilidadMuestraContainer(props) {
         return (
             <ProtectedRoute>
                 <DatosMuestra muestra={muestra} isLoading={isLoading}/>
-                <TrazabilidadSteps idMuestra={props.idMuestra}/>
+                <TrazabilidadSteps puntoGeneracion={puntoGeneracion} idMuestra={props.idMuestra}/>
             </ProtectedRoute>
         )
     

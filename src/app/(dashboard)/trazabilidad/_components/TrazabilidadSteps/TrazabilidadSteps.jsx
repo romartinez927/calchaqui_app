@@ -66,7 +66,7 @@ function TrazabilidadSteps(props) {
                                 puntoControlNombre={punto.nombre}
                                 orden={punto.orden}
                                 trazabilidades={trazabilidades}
-                                
+                                puntoGeneracionNombre={props.puntoGeneracion}
                             />
                         ))
                 }
